@@ -4,6 +4,9 @@ import {
   normalizeState, award, redeem, toggleEquipment, currentTitle,
 } from "./rewards.js";
 
+const RESULT_DURATION = 3000;
+const phone = document.querySelector("#phone-demo .phone-screen");
+const homeBar = document.querySelector("[data-device-home]");
 const STORAGE_KEY = "gyodong5-2-web-prototype-v1";
 const content = document.querySelector("#phone-content");
 const navigation = document.querySelector("#phone-nav");
@@ -27,6 +30,7 @@ let deviceOff = false;
 let trial = null;
 let timer = null;
 let arrivalTimer = null;
+let resultTimer = null;
 let overlay = null;
 let noticeTimer = null;
 let previewLevel = null;
@@ -98,7 +102,7 @@ function guide() {
 
 function launcher() {
   return `<div class="device-launcher">
-    <div class="launcher-clock" aria-hidden="true">9:41</div>
+    <div class="launcher-clock" data-phone-clock aria-hidden="true">9:41</div>
     <p class="launcher-hint" id="launcher-hint">‘횡단보도 알림’ 아이콘을 눌러<br>모은 포인트를 확인해 보세요.</p>
     <div class="launcher-apps" role="group" aria-label="가상 휴대폰의 앱 아이콘">
       <button type="button" data-media="chat" class="launcher-icon"><span class="launcher-glyph icon-talk" aria-hidden="true"><i>TALK</i></span><b>카카오톡</b></button>
@@ -169,8 +173,10 @@ function updateJourney() {
     near: "횡단보도에서 벗어나기", passed: "산책 다시 시작",
   }[locationStage]);
   const power = document.querySelector("#screen-off-toggle");
-  power.textContent = deviceOff ? "화면 켜기" : "화면 끄기";
-  power.setAttribute("aria-label", "가상 휴대폰 " + power.textContent);
+  const powerLabel = deviceOff ? "화면 켜기" : "화면 끄기";
+  power.title = powerLabel;
+  power.setAttribute("aria-label", "가상 휴대폰 " + powerLabel);
+  phone.classList.toggle("is-off", deviceOff);
 }
 
 function paintAvatars(target, currentPage, growth) {
@@ -200,7 +206,7 @@ function renderPreview() {
 function render({ refreshMedia = false } = {}) {
   state = normalizeState(state);
   const appOpen = surface === "app";
-  document.querySelector("#phone-demo .phone-screen").dataset.surface = surface === "reading" ? media : surface;
+  phone.dataset.surface = surface === "reading" ? media : surface;
   document.querySelector("#phone-demo .phone-brand").hidden = !appOpen;
   navigation.hidden = !appOpen;
   content.classList.toggle("device-content", !appOpen);
@@ -212,6 +218,7 @@ function render({ refreshMedia = false } = {}) {
   }
   updateJourney();
   renderPreview();
+  updatePhoneClock();
 }
 function openPage(destination) {
   if (!pages.some(([id]) => id === destination)) return;
@@ -221,28 +228,35 @@ function openPage(destination) {
   render();
   content.scrollTop = 0;
 }
+function removeOverlay() {
+  clearTimeout(resultTimer);
+  resultTimer = null;
+  overlay?.remove();
+  overlay = null;
+  content.inert = false;
+  navigation.inert = false;
+  homeBar.disabled = false;
+}
 function clearTrial() {
   clearTimeout(arrivalTimer);
   arrivalTimer = null;
   clearInterval(timer);
   timer = null;
   trial = null;
-  document.querySelectorAll("[data-demo-panel]").forEach((element) => element.remove());
-  overlay = null;
-  content.inert = false;
-  navigation.inert = false;
+  removeOverlay();
   updateJourney();
 }
 function announce(message) {
   status.textContent = message;
 }
 function showOverlay(html, className = "") {
-  document.querySelectorAll("[data-demo-panel]").forEach((element) => element.remove());
+  removeOverlay();
   overlay = document.createElement("div");
   overlay.className = `phone-overlay ${className}`;
   overlay.dataset.demoPanel = "true";
   overlay.innerHTML = html;
-  document.querySelector("#phone-demo .phone-screen").append(overlay);
+  phone.append(overlay);
+  homeBar.disabled = true;
   content.inert = true;
   navigation.inert = true;
   return overlay;
@@ -274,39 +288,39 @@ function depart() {
   else announce("횡단보도에서 벗어났어요. 횡단보도 알림 앱을 열어 포인트와 하슬랑을 확인해 보세요.");
 }
 function finishTrial() {
-  const mode = trial.mode;
   clearTrial();
   const outcome = award(state);
   save(outcome.state);
   render();
   const heading = outcome.earned ? "+10 포인트 적립" : "오늘 적립 한도에 도달했어요";
   announce(`${heading}. 오늘 ${state.count} / ${DAILY_LIMIT}회 적립`);
-  const detail = mode === "off" ? "화면을 꺼 둔 상태로 적립됐어요." : "경고창을 닫지 않고 기다렸어요.";
   if (deviceOff) {
     showScreenOff();
     announce(heading + " · 화면을 켜지 않고 기록했어요. 오른쪽 화살표로 이동한 뒤 앱에서 확인해 보세요.");
     return;
   }
-  showOverlay(`<div class="result-panel" role="dialog" aria-label="${heading}"><span class="reward-mark" aria-hidden="true">✦</span><h3>${heading}</h3><p>${detail}</p><p>오늘 ${state.count} / ${DAILY_LIMIT}회 적립</p><button class="app-button" data-close-result>계속 걸어가기</button></div>`, "result-overlay");
-  overlay.querySelector("button").focus({ preventScroll: true });
+  showOverlay(`<div class="result-panel" role="status"><h3>${heading}</h3><p>오늘 ${state.count} / ${DAILY_LIMIT}회 적립</p><button type="button" class="result-dismiss" data-close-result>닫기</button></div>`, "result-overlay");
+  resultTimer = setTimeout(closeResult, RESULT_DURATION);
+}
+function closeResult() {
+  if (!overlay?.classList.contains("result-overlay")) return;
+  const focusWasInResult = overlay.contains(document.activeElement);
+  removeOverlay();
+  if (focusWasInResult) homeBar.focus({ preventScroll: true });
 }
 function showScreenOff() {
-  showOverlay('<div class="screen-off-panel"><span class="off-light"></span><p>화면 꺼짐</p></div>', "screen-off-overlay");
+  showOverlay('<div role="status" aria-label="화면 꺼짐"></div>', "screen-off-overlay");
 }
 function toggleScreen() {
-  if (document.querySelector(".result-panel")) return;
+  closeResult();
   deviceOff = !deviceOff;
   if (deviceOff) {
-    if (trial) trial = { ...trial, mode: "off" };
     showScreenOff();
   } else {
-    document.querySelectorAll("[data-demo-panel]").forEach((panel) => panel.remove());
-    overlay = null;
-    content.inert = false;
-    navigation.inert = false;
+    removeOverlay();
     if (trial) {
-      trial = { ...trial, mode: "warning" };
       showWarning();
+      tick();
     } else render();
   }
   updateJourney();
@@ -347,11 +361,35 @@ function arrive() {
   arrivalTimer = setTimeout(() => {
     arrivalTimer = null;
     if (!deviceOff) showWarning();
-    trial = { mode: deviceOff ? "off" : "warning", startedAt: performance.now() };
+    trial = { startedAt: performance.now() };
     tick();
     timer = setInterval(tick, 100);
   }, delay);
 }
+function updatePhoneClock() {
+  const time = new Intl.DateTimeFormat("en-GB", { hour: "numeric", minute: "2-digit", timeZone: "Asia/Seoul" }).format(new Date());
+  for (const clock of document.querySelectorAll("[data-phone-clock]")) {
+    if (clock.textContent !== time) clock.textContent = time;
+  }
+}
+function showDeviceHome() {
+  if (overlay || surface === "launcher") return;
+  surface = "launcher";
+  render();
+  content.scrollTop = 0;
+}
+let homeSwipeStart = null;
+homeBar.addEventListener("pointerdown", (event) => {
+  if (!event.isPrimary || event.button !== 0 || homeBar.disabled) return;
+  homeSwipeStart = event.clientY;
+  homeBar.setPointerCapture(event.pointerId);
+});
+homeBar.addEventListener("pointerup", (event) => {
+  if (homeSwipeStart !== null && homeSwipeStart - event.clientY >= 20) showDeviceHome();
+  homeSwipeStart = null;
+});
+homeBar.addEventListener("lostpointercapture", () => { homeSwipeStart = null; });
+
 document.addEventListener("click", (event) => {
   const button = event.target.closest("button");
   if (!button) return;
@@ -383,16 +421,13 @@ document.addEventListener("click", (event) => {
     }
     openPage("home");
   }
-  if (button.hasAttribute("data-device-home") && !overlay) { surface = "launcher"; render(); }
+  if (button.hasAttribute("data-device-home")) showDeviceHome();
   if (button.hasAttribute("data-start")) {
     startTrial();
     document.querySelector("#experience").scrollIntoView({ block: "start" });
   }
   if (button.hasAttribute("data-dismiss-warning")) dismissWarning();
-  if (button.hasAttribute("data-close-result")) {
-    depart();
-    content.querySelector("[data-open-app]")?.focus({ preventScroll: true });
-  }
+  if (button.hasAttribute("data-close-result")) closeResult();
   if (button.dataset.redeem) {
     const next = redeem(state, button.dataset.redeem);
     if (next !== state) {
@@ -483,4 +518,5 @@ window.addEventListener("storage", (event) => {
   announce("다른 창에서 바뀐 웹 체험 기록을 반영했어요.");
 });
 render();
+setInterval(updatePhoneClock, 15_000);
 announce(storageAvailable ? "오른쪽 화살표로 가까이 가 보세요. 휴대폰 옆 버튼으로 화면을 끌 수도 있어요." : "이 창에서 체험할 수 있어요.");

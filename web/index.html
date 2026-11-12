@@ -6,8 +6,8 @@
   <meta name="theme-color" content="#19372d">
   <meta name="description" content="5난초 학생들의 토의에서 시작한 횡단보도 알림. 웹에서 경고와 포인트, 하슬랑의 성장을 체험하고 안드로이드 시제품을 내려받으세요.">
   <title>횡단보도 알림 · 5난초의 보행 안전 아이디어</title>
-  <link rel="stylesheet" href="style.css?v=phone-home-2">
-  <script type="module" src="app.js?v=phone-home-2"></script>
+  <link rel="stylesheet" href="style.css?v=phone-controls-1">
+  <script type="module" src="app.js?v=phone-controls-1"></script>
 </head>
 <body>
   <a class="skip-link" href="#experience">체험으로 건너뛰기</a>
@@ -52,15 +52,18 @@
           <div class="scene-credits" id="scene-credits">강릉역 가상 장면 · AI 재구성</div>
         <div class="phone-frame" id="phone-demo" aria-label="횡단보도 알림 웹 체험 화면">
           <div class="phone-screen">
-            <div class="phone-status" aria-hidden="true"><span>9:41</span><span class="phone-camera"></span><span>▰</span></div>
+            <div class="phone-status" aria-hidden="true">
+              <time data-phone-clock>9:41</time><span class="phone-camera"></span>
+              <span class="phone-indicators"><i class="phone-signal"></i><i class="phone-wifi"></i><i class="phone-battery"></i></span>
+            </div>
             <div class="phone-brand"><span class="mini-crossing" aria-hidden="true">▰</span><span>횡단보도 알림</span></div>
             <div id="phone-content" class="phone-content" tabindex="0"></div>
             <nav id="phone-nav" class="phone-nav" aria-label="체험 앱 메뉴"></nav>
             <div id="phone-notice" class="phone-notice" role="status" hidden></div>
             <button class="phone-home-button" data-device-home aria-label="가상 휴대폰 홈으로"><span class="phone-home-bar"></span></button>
           </div>
+          <button type="button" class="phone-power" id="screen-off-toggle" aria-label="가상 휴대폰 화면 끄기" title="화면 끄기"></button>
         </div>
-          <button class="phone-power" id="screen-off-toggle" aria-label="가상 휴대폰 화면 끄기">화면 끄기</button>
           <div class="demo-controls world-controls">
             <button type="button" id="walk-back" class="walk-arrow" aria-label="뒤로 이동">〈</button>
             <span id="walk-instruction">앞에 횡단보도가 보여요</span>
@@ -68,7 +71,7 @@
           </div>
         </div>
         <div class="demo-feedback"><p id="demo-status" role="status" aria-live="polite">오른쪽 화살표로 앞으로 걸어가 보세요.</p><button id="reset-demo" type="button">처음부터</button></div>
-        <p class="web-limit">횡단보도에서 벗어나면 휴대폰 홈에서 앱을 열 수 있어요.</p>
+        <p class="web-limit">휴대폰 오른쪽 전원 버튼으로 화면을 켜고 끌 수 있어요. 화면 아래 막대를 누르거나 위로 밀면 홈이 열려요.</p>
       </div>
     </section>
     <section class="app-preview shell" id="app-preview" aria-labelledby="preview-title">
@@ -87,7 +90,10 @@
       </div>
       <div class="phone-frame preview-phone" aria-label="평소 횡단보도 알림 앱">
         <div class="phone-screen">
-          <div class="phone-status" aria-hidden="true"><span>9:41</span><span class="phone-camera"></span><span>▰</span></div>
+          <div class="phone-status" aria-hidden="true">
+              <time data-phone-clock>9:41</time><span class="phone-camera"></span>
+              <span class="phone-indicators"><i class="phone-signal"></i><i class="phone-wifi"></i><i class="phone-battery"></i></span>
+            </div>
           <div class="phone-brand"><span class="mini-crossing" aria-hidden="true">▰</span><span>횡단보도 알림</span></div>
           <div id="preview-content" class="phone-content" tabindex="0"></div>
           <nav id="preview-nav" class="phone-nav" aria-label="평소 앱 메뉴"></nav>
