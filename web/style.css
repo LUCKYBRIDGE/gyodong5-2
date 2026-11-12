@@ -466,3 +466,31 @@ h1 span::after { content: ''; position: absolute; left: -3px; bottom: 4px; width
   .screenshot-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px 12px; }
   .screenshot-grid figcaption { font-size: 12px; }
 }
+
+/* Everyday phone screens have their own colors. The safety app keeps its green theme. */
+#phone-demo .phone-screen[data-surface="video"] { background: #131418; color: #fafafa; }
+#phone-demo .phone-screen[data-surface="video"] .phone-camera,
+#phone-demo .phone-screen[data-surface="chat"] .phone-camera,
+#phone-demo .phone-screen[data-surface="launcher"] .phone-camera { background: #090d16; }
+#phone-demo .phone-screen[data-surface="video"] .phone-home-button { background: #131418; }
+.phone-media--video { background: #131418; color: #fafafa; }
+.phone-media--video .media-switch button { background: #2a2c34; color: #ececf0; }
+.phone-media--video .media-switch button[aria-pressed="true"] { background: #f3f3f6; color: #191a21; }
+.video-header { display: flex; align-items: center; gap: 7px; padding: 0 14px 10px; font-size: 13px; }
+.video-mark { display: grid; place-items: center; width: 23px; height: 16px; background: #d72d38; color: white; border-radius: 5px; font-size: 9px; }
+.phone-media--video .media-caption { color: #b8bac7; }
+.phone-media--video .media-author { border-color: #333640; }
+.phone-media--video .media-author span { background: #4c5c97; color: white; }
+#phone-demo .phone-screen[data-surface="chat"],
+#phone-demo .phone-screen[data-surface="chat"] .phone-home-button,
+.phone-media--chat { background: #e1edf7; color: #23364c; }
+.phone-media--chat .media-switch button { background: #f5f9ff; color: #304e70; }
+.phone-media--chat .media-switch button[aria-pressed="true"] { background: #31577c; color: white; }
+.phone-media--chat .chat-header { background: #cbdff0; color: #253e5b; }
+.phone-media--chat .chat-thread { background: #e1edf7; }
+.phone-media--chat .chat-mine { background: #ffed9c; }
+#phone-demo .phone-screen[data-surface="launcher"],
+#phone-demo .phone-screen[data-surface="launcher"] .phone-home-button { background: #e7eaf4; color: #232d42; }
+.device-launcher { background: linear-gradient(#e7eaf4, #bdcce7); }
+.device-launcher > p { color: #374665; }
+.launcher-wallpaper { aspect-ratio: 16 / 10; background: url("assets/gangneung-crosswalk-open-scene.jpg") center / cover; }

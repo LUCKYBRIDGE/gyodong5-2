@@ -99,7 +99,7 @@ function guide() {
 function launcher() {
   return `<div class="device-launcher">
     <div class="launcher-clock">9:41<small>강릉에서의 산책</small></div>
-    <div class="launcher-wallpaper">${canvasMarkup()}</div>
+    <div class="launcher-wallpaper" aria-hidden="true"></div>
     <div class="launcher-apps">
       <button data-open-app class="launcher-icon"><span class="launcher-crossing" aria-hidden="true">▰ ▰ ▰</span><b>횡단보도 알림</b></button>
       <button data-reading class="launcher-icon"><span class="launcher-browser" aria-hidden="true">◎</span><b>영상·메신저</b></button>
@@ -108,12 +108,13 @@ function launcher() {
   </div>`;
 }
 function reading() {
-  return `<div class="phone-media">
+  return `<div class="phone-media phone-media--${media}">
     <div class="media-switch" role="group" aria-label="가상 휴대폰에서 사용할 앱">
       <button type="button" data-media="video" aria-pressed="${media === "video"}">영상</button>
       <button type="button" data-media="chat" aria-pressed="${media === "chat"}">메신저</button>
     </div>
-    ${media === "video" ? `<div class="sample-player ${playing ? "is-playing" : ""}">
+    ${media === "video" ? `<div class="video-header"><span class="video-mark" aria-hidden="true">▶</span><b>영상</b></div>
+    <div class="sample-player ${playing ? "is-playing" : ""}">
       <div class="sample-film" aria-hidden="true"></div>
       <button class="sample-play" type="button" data-play aria-label="${playing ? "영상 일시정지" : "영상 재생"}">${playing ? "Ⅱ" : "▶"}</button>
       <span class="sample-progress" aria-hidden="true"></span>
@@ -181,13 +182,13 @@ function renderPreview() {
 function render({ refreshMedia = false } = {}) {
   state = normalizeState(state);
   const appOpen = surface === "app";
+  document.querySelector("#phone-demo .phone-screen").dataset.surface = surface === "reading" ? media : surface;
   document.querySelector("#phone-demo .phone-brand").hidden = !appOpen;
   navigation.hidden = !appOpen;
   content.classList.toggle("device-content", !appOpen);
   if (appOpen) renderApp(content, navigation, page, previewLevel);
   else if (surface === "launcher") {
     content.innerHTML = launcher();
-    paintAvatars(content, null, null);
   } else if (refreshMedia || !content.querySelector(".phone-media")) {
     content.innerHTML = reading();
   }
