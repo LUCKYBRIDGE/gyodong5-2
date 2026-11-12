@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#19372d">
+  <meta name="description" content="5난초 학생들의 토의에서 시작한 횡단보도 알림. 웹에서 경고와 포인트, 하슬랑의 성장을 체험하고 안드로이드 시제품을 내려받으세요.">
+  <title>횡단보도 알림 · 5난초의 보행 안전 아이디어</title>
+  <link rel="stylesheet" href="style.css">
+  <script type="module" src="app.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#experience">체험으로 건너뛰기</a>
+  <header class="site-header shell">
+    <a class="wordmark" href="./" aria-label="횡단보도 알림 처음으로"><span class="crossing-mark" aria-hidden="true"><i></i><i></i><i></i><i></i></span>횡단보도 알림</a>
+    <a class="header-link" href="#download">안드로이드에서 체험하기 <span aria-hidden="true">↗</span></a>
+  </header>
+  <main>
+    <section class="hero shell" aria-labelledby="hero-title">
+      <div class="hero-copy">
+        <p class="eyebrow">5난초가 생각한 강릉의 보행 안전</p>
+        <h1 id="hero-title">횡단보도 앞,<br>휴대폰은<br><span>잠깐 쉬어요.</span></h1>
+        <p class="hero-description">길을 살피는 작은 습관에 포인트가 쌓이고,<br class="desktop-break"> 하슬랑도 함께 자라요.</p>
+        <p class="classroom-note">“강릉의 보행자들이 어떻게 하면 더 안전하게 길을 다닐 수 있을까?”<br>5난초 학생들의 토의에서 시작한 경고 알림과 보상체계입니다.</p>
+        <div class="download-area" id="download">
+          <div class="download-actions">
+            <a class="button button-dark download-button" href="downloads/traffic-demo.apk" download>안드로이드 APK 다운로드 <span aria-hidden="true">↓</span></a>
+            <button class="button button-outline" id="install-guide" type="button" aria-haspopup="dialog">설치방법</button>
+          </div>
+          <p class="download-caption">정식 출시 전 시제품 · Android 8.0 이상<br>설치하면 다른 앱 위에 뜨는 경고를 직접 체험할 수 있어요.</p>
+        </div>
+        <div class="project-origin">
+          <span class="origin-dot" aria-hidden="true"></span>
+          <p>학부모가 자녀의 휴대폰에 설치해 주면 좋겠다는<br class="desktop-break"> 학생의 생각을 담았습니다.</p>
+        </div>
+      </div>
+      <div class="experience" id="experience">
+        <div class="experience-heading"><h2>지금, 웹에서 먼저 해보세요</h2><span class="live-dot" aria-hidden="true"></span></div>
+        <div class="phone-frame" id="phone-demo" aria-label="횡단보도 알림 웹 체험 화면">
+          <div class="phone-screen">
+            <div class="phone-status" aria-hidden="true"><span>9:41</span><span class="phone-camera"></span><span>▰</span></div>
+            <div class="phone-brand"><span class="mini-crossing" aria-hidden="true">▰</span><span>횡단보도 알림</span></div>
+            <div id="phone-content" class="phone-content" tabindex="0"></div>
+            <nav id="phone-nav" class="phone-nav" aria-label="체험 앱 메뉴"></nav>
+            <div id="phone-notice" class="phone-notice" role="status" hidden></div>
+            <div class="phone-home-bar" aria-hidden="true"></div>
+          </div>
+        </div>
+        <div class="demo-controls">
+          <button type="button" id="start-demo" class="button button-lime">비콘 접근 체험 <span aria-hidden="true">→</span></button>
+          <button type="button" id="screen-off-demo" class="button button-outline">화면 끄기 체험</button>
+        </div>
+        <button type="button" id="leave-demo" class="leave-demo">비콘 범위 벗어나기</button>
+        <div class="demo-feedback"><p id="demo-status" role="status" aria-live="polite">버튼을 눌러 횡단보도에 가까워져 보세요.</p><button id="reset-demo" type="button">처음부터</button></div>
+        <p class="web-limit">웹 체험은 이 화면 안에서 가상으로 진행돼요.</p>
+      </div>
+    </section>
+    <section class="how-section" aria-labelledby="how-title">
+      <div class="shell how-inner">
+        <div class="how-heading"><p class="eyebrow">적립 기준은 간단해요</p><h2 id="how-title">횡단보도 앞에서,<br>이렇게 함께해요.</h2></div>
+        <div class="rule-cards">
+          <article class="rule-card"><span class="rule-glyph" aria-hidden="true">◼</span><h3>이미 화면을 껐다면</h3><p>비콘 가까이에서 화면을 끈 상태를 유지해요. 휴대폰을 다시 켤 필요 없이 포인트가 쌓여요.</p></article>
+          <article class="rule-card"><span class="rule-glyph" aria-hidden="true">▤</span><h3>휴대폰을 보고 있었다면</h3><p>“횡단보도 앞입니다. 주변을 봐주세요.” 경고창을 닫지 않고 주변을 살펴요.</p></article>
+        </div>
+      </div>
+    </section>
+    <section class="screenshots shell" aria-labelledby="screenshots-title">
+      <div class="section-heading"><div><p class="eyebrow">실제 안드로이드 시제품</p><h2 id="screenshots-title">휴대폰에서는 이런 모습이에요.</h2></div><p>10초 유지 시 10점, 하루 최대 3회.<br>하슬랑은 누적 기록에 따라 성장해요.</p></div>
+      <div class="screenshot-grid">
+        <figure><div class="screenshot-wrap"><img src="assets/home.png" alt="포인트와 하슬랑이 함께 보이는 앱 홈 화면" loading="lazy" width="1440" height="3120"></div><figcaption>포인트와 오늘의 기록</figcaption></figure>
+        <figure><div class="screenshot-wrap"><img src="assets/warning.png" alt="횡단보도 앞입니다. 주변을 봐주세요라는 경고 화면" loading="lazy" width="1440" height="3120"></div><figcaption>다른 앱 위에 뜨는 경고</figcaption></figure>
+        <figure><div class="screenshot-wrap"><img src="assets/avatar.png" alt="칭호와 아이템에 따라 성장하는 픽셀 하슬랑 화면" loading="lazy" width="1440" height="3120"></div><figcaption>함께 자라는 하슬랑</figcaption></figure>
+      </div>
+    </section>
+  </main>
+  <footer class="site-footer shell"><p>5난초의 보행 안전 아이디어</p><p>가상 비콘으로 작동하는 체험용 시제품입니다.<br>실제 비콘 설치와 기프티콘 발급은 운영 연동 후 적용됩니다.</p></footer>
+  <dialog id="install-dialog" class="install-dialog" aria-labelledby="install-title">
+    <div class="dialog-top"><p class="eyebrow">안드로이드 시제품</p><button type="button" data-close aria-label="설치방법 닫기" class="dialog-close">×</button></div>
+    <h2 id="install-title">휴대폰에 설치하고<br>직접 체험해 보세요.</h2>
+    <p class="dialog-intro">Android 8.0 이상에서 APK 파일로 설치할 수 있어요. 메뉴 이름은 기기마다 조금 다를 수 있어요.</p>
+    <ol class="install-steps">
+      <li><strong>APK 파일 내려받기</strong><p>안드로이드 휴대폰에서 이 웹을 열고 ‘APK 다운로드’를 눌러요. 내려받은 파일은 알림이나 ‘내 파일 → 다운로드’에서 열 수 있어요.</p></li>
+      <li><strong>설치를 허용하고 앱 열기</strong><p>‘이 출처의 앱 설치 허용’ 화면이 나오면 파일을 연 브라우저나 ‘내 파일’의 설치 권한을 허용하고 설치해요. 기기 보안 설정에서 설치를 차단하면 학교나 보호자와 설정을 확인해 주세요.</p></li>
+      <li><strong>다른 앱 위에 표시 허용</strong><p>앱에서 ‘다른 앱 위에 표시 허용’을 눌러요. 설정 목록에서 ‘횡단보도 알림’을 선택하고 권한을 켠 뒤 앱으로 돌아와요.</p></li>
+      <li><strong>가상 비콘 접근 체험</strong><p>‘가상 접근 시작’을 누르고 7초 안에 다른 앱을 열거나 화면을 꺼요. 경고창을 닫지 않거나 화면을 끈 상태를 10초 유지하면 포인트가 쌓여요.</p></li>
+    </ol>
+    <p class="install-note">현재는 가상 비콘을 이용해요. 일부 보호 화면에서는 경고 표시가 제한될 수 있어요. 체험 뒤 설치 권한은 다시 꺼 둘 수 있어요.</p>
+    <a class="button button-dark dialog-download" href="downloads/traffic-demo.apk" download>APK 다운로드 <span aria-hidden="true">↓</span></a>
+  </dialog>
+</body>
+</html>
