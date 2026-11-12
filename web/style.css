@@ -44,6 +44,7 @@ h1 span { position: relative; z-index: 0; white-space: nowrap; }
 h1 span::after { content: ''; position: absolute; left: -3px; bottom: 4px; width: calc(100% + 4px); height: .31em; background: var(--lime); z-index: -1; }
 .hero-description { font-size: 18px; line-height: 1.8; letter-spacing: -.6px; margin: 27px 0 23px; }
 .classroom-note { font-size: 13px; line-height: 1.85; color: var(--muted); margin: 0; max-width: 460px; word-break: keep-all; }
+.web-jump { display: inline-flex; align-items: center; gap: 16px; margin-top: 24px; font-size: 14px; font-weight: 700; text-decoration-thickness: 1px; text-underline-offset: 6px; }
 .download-area { margin-top: 34px; }
 .download-actions { display: flex; gap: 9px; flex-wrap: wrap; }
 .button { border: 1px solid transparent; border-radius: 12px; padding: 15px 18px; min-height: 49px; font-size: 13px; font-weight: 700; display: inline-flex; justify-content: center; align-items: center; gap: 14px; text-decoration: none; line-height: 1.4; transition: transform .15s, background .15s; }
