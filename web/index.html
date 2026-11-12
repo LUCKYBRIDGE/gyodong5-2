@@ -37,6 +37,16 @@
       </div>
       <div class="experience" id="experience">
         <div class="experience-heading"><h2>지금, 웹에서 먼저 해보세요</h2><span class="live-dot" aria-hidden="true"></span></div>
+        <div class="street-viewport" id="street-viewport" data-stage="away">
+          <div class="street-panorama" aria-hidden="true">
+            <img class="street-photo" src="assets/gangneung-crosswalk-open-scene.jpg" alt="">
+          </div>
+          <div class="scene-caption"><span class="scene-pin">강릉역 앞</span><span>가상 보행 체험</span></div>
+          <div class="journey-scene" aria-label="가상 보행 경로">
+            <div class="journey-label"><strong id="journey-place">강릉역 앞에서 산책을 시작해요</strong><span id="journey-distance">화살표를 눌러 가까이 가 보세요</span></div>
+            <div class="route-progress" aria-hidden="true"><span></span><i></i><i></i><i></i><i></i></div>
+          </div>
+          <div class="scene-credits" id="scene-credits">강릉역 가상 장면 · AI 재구성</div>
         <div class="phone-frame" id="phone-demo" aria-label="횡단보도 알림 웹 체험 화면">
           <div class="phone-screen">
             <div class="phone-status" aria-hidden="true"><span>9:41</span><span class="phone-camera"></span><span>▰</span></div>
@@ -44,16 +54,18 @@
             <div id="phone-content" class="phone-content" tabindex="0"></div>
             <nav id="phone-nav" class="phone-nav" aria-label="체험 앱 메뉴"></nav>
             <div id="phone-notice" class="phone-notice" role="status" hidden></div>
-            <div class="phone-home-bar" aria-hidden="true"></div>
+            <button class="phone-home-button" data-device-home aria-label="가상 휴대폰 홈으로"><span class="phone-home-bar"></span></button>
           </div>
         </div>
-        <div class="demo-controls">
-          <button type="button" id="start-demo" class="button button-lime">비콘 접근 체험 <span aria-hidden="true">→</span></button>
-          <button type="button" id="screen-off-demo" class="button button-outline">화면 끄기 체험</button>
+          <button class="phone-power" id="screen-off-toggle" aria-label="가상 휴대폰 화면 끄기">화면 끄기</button>
+          <div class="demo-controls world-controls">
+            <button type="button" id="walk-back" class="walk-arrow" aria-label="뒤로 이동">〈</button>
+            <span id="walk-instruction">앞에 횡단보도가 보여요</span>
+            <button type="button" id="start-demo" class="walk-arrow" aria-label="횡단보도로 걸어가기">〉</button>
+          </div>
         </div>
-        <button type="button" id="leave-demo" class="leave-demo">비콘 범위 벗어나기</button>
-        <div class="demo-feedback"><p id="demo-status" role="status" aria-live="polite">버튼을 눌러 횡단보도에 가까워져 보세요.</p><button id="reset-demo" type="button">처음부터</button></div>
-        <p class="web-limit">웹 체험은 이 화면 안에서 가상으로 진행돼요.</p>
+        <div class="demo-feedback"><p id="demo-status" role="status" aria-live="polite">오른쪽 화살표로 앞으로 걸어가 보세요.</p><button id="reset-demo" type="button">처음부터</button></div>
+        <p class="web-limit">안전한 곳에서는 휴대폰의 앱 아이콘을 눌러 보세요.</p>
       </div>
     </section>
     <section class="how-section" aria-labelledby="how-title">
@@ -75,6 +87,7 @@
     </section>
   </main>
   <footer class="site-footer shell"><p>5난초의 보행 안전 아이디어</p><p>가상 비콘으로 작동하는 체험용 시제품입니다.<br>실제 비콘 설치와 기프티콘 발급은 운영 연동 후 적용됩니다.</p></footer>
+  <p class="photo-attribution shell">거리 배경은 <a href="https://commons.wikimedia.org/wiki/File:Gangneung_Station_3.jpg" target="_blank" rel="noreferrer">Gangneung Station 3, Christophe95</a> 사진을 AI로 재구성했습니다. 원본과 재구성 장면에 <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noreferrer">CC BY-SA 4.0</a>을 적용합니다.</p>
   <dialog id="install-dialog" class="install-dialog" aria-labelledby="install-title">
     <div class="dialog-top"><p class="eyebrow">안드로이드 시제품</p><button type="button" data-close aria-label="설치방법 닫기" class="dialog-close">×</button></div>
     <h2 id="install-title">휴대폰에 설치하고<br>직접 체험해 보세요.</h2>

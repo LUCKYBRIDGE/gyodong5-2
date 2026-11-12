@@ -286,3 +286,114 @@ h1 span::after { content: ''; position: absolute; left: -3px; bottom: 4px; width
 .approach-panel h3 { font-size: 17px; margin-top: 28px; letter-spacing: -.5px; }
 .approach-panel p { font-size: 12px; color: var(--muted); }
 .beacon-pulse { margin: auto; display: block; width: 28px; height: 28px; background: var(--button); border-radius: 50%; box-shadow: 0 0 0 13px #215c4b12, 0 0 0 27px #215c4b08; }
+
+/* The walking scene surrounds the phone; app screens retain the Android prototype layout. */
+.phone-brand[hidden], .phone-nav[hidden] { display: none; }
+.device-content { padding: 0; }
+.device-launcher { min-height: 100%; display: flex; flex-direction: column; padding: 24px 24px 17px; background: linear-gradient(#f3e0ba, #dbebd1 62%, #c0d8c6); text-align: center; }
+.launcher-clock { font-size: 42px; line-height: 1; font-weight: 600; letter-spacing: -2px; }
+.launcher-clock small { display: block; margin-top: 8px; font-size: 11px; letter-spacing: 0; font-weight: 400; }
+.launcher-wallpaper { margin: 24px 0 17px; border-radius: 16px; overflow: hidden; }
+.launcher-apps { display: flex; justify-content: center; gap: 30px; }
+.launcher-icon { border: 0; background: transparent; display: flex; flex-direction: column; align-items: center; padding: 0; gap: 8px; color: var(--ink); }
+.launcher-icon > span { width: 53px; height: 53px; display: grid; place-items: center; border-radius: 15px; font-size: 19px; box-shadow: 0 3px 8px #19372d12; }
+.launcher-crossing { background: var(--lime); }
+.launcher-browser { background: white; font-size: 32px !important; color: #397f92; }
+.launcher-icon b { font-size: 10px; font-weight: 500; }
+.device-launcher > p { font-size: 10px; color: #44594e; line-height: 1.6; margin: 23px 0 12px; }
+.device-launcher > .app-button { margin-top: auto; }
+.mock-browser { min-height: 100%; padding: 0 20px 20px; background: #fffdf8; }
+.browser-address { background: #e9eeea; padding: 11px 15px; border-radius: 30px; font-size: 10px; margin-bottom: 28px; margin-top: 10px; }
+.mock-browser h3 { font-size: 29px; line-height: 1.35; margin: 12px 0 24px; letter-spacing: -1.5px; }
+.mock-browser h4 { margin-top: 23px; margin-bottom: 8px; font-size: 15px; }
+.mock-browser p { font-size: 12px; line-height: 1.8; color: var(--muted); }
+.reading-landscape { height: 150px; background: #e7d4ad; position: relative; border-radius: 14px; overflow: hidden; }
+.reading-landscape > span { position: absolute; right: 30px; top: 18px; color: #d79c48; font-size: 36px; }
+.reading-landscape > div { background: #8fb8b8; position: absolute; top: 80px; left: -20px; width: 150%; height: 80px; transform: rotate(-6deg); border-top: 7px solid #cce4d8; }
+.reading-lines { margin: 20px 0 24px; display: grid; gap: 8px; }
+.reading-lines i { height: 5px; background: #e8ece6; border-radius: 5px; }
+.reading-lines i:last-child { width: 65%; }
+.phone-home-button { border: 0; padding: 0; background: var(--paper); flex-shrink: 0; min-height: 21px; }
+.phone-home-button .phone-home-bar { display: block; }
+
+/* First-person street experience. App content inside the phone uses the existing app styles. */
+.hero { display: block; padding-top: 18px; padding-bottom: 64px; }
+.hero-copy { display: grid; grid-template-columns: 1fr 1fr; column-gap: 65px; padding-top: 0; margin-bottom: 35px; }
+.hero-copy .eyebrow { grid-column: 1 / -1; margin-bottom: 12px; }
+.hero-copy h1 { grid-column: 1; grid-row: 2 / 7; font-size: 48px; }
+.hero-description { margin: 0 0 12px; font-size: 16px; }
+.classroom-note { font-size: 12px; }
+.web-jump { margin-top: 12px; font-size: 12px; }
+.download-area { margin-top: 18px; }
+.project-origin { display: none; }
+.experience-heading { width: 100%; margin-bottom: 13px; }
+.experience-heading h2 { font-size: 15px; }
+.street-viewport { width: 100%; height: clamp(530px, 91svh, 740px); position: relative; border-radius: 28px; overflow: hidden; background: #a8cbd5; isolation: isolate; border: 1px solid #bdccc1; }
+.street-panorama { position: absolute; inset: 0; z-index: -2; }
+.street-photo { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 26% 65%; transform-origin: 32% 55%; transition: transform 780ms cubic-bezier(.22,.61,.36,1); }
+.street-viewport::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg,#0a242a26,transparent 60%),linear-gradient(0deg,#0a242a85,transparent 25%); z-index: -1; pointer-events: none; }
+.street-viewport[data-stage="approaching"] .street-photo { transform: scale(1.19); }
+.street-viewport[data-stage="near"] .street-photo { transform: scale(1.43) translateY(2%); }
+.street-viewport[data-stage="passed"] .street-photo { transform: scale(1.12) translateX(-4%); }
+.scene-caption { position: absolute; top: 25px; left: 25px; display: flex; align-items: center; gap: 13px; color: white; font-size: 12px; text-shadow: 0 1px 5px #102c3070; }
+.scene-pin { background: #19372de8; padding: 10px 15px; border-radius: 30px; font-weight: 700; text-shadow: none; }
+.journey-scene { position: absolute; left: 25px; top: 86px; width: auto; max-width: 44%; background: #ffffffed; backdrop-filter: blur(8px); border: 0; padding: 17px 19px; border-radius: 17px; }
+.journey-label { display: flex; flex-direction: column; font-size: 12px; line-height: 1.6; gap: 3px; }
+.journey-label strong { font-size: 17px; letter-spacing: -.5px; color: var(--ink); }
+.route-progress { display: flex; gap: 35px; position: relative; align-items: center; margin-top: 14px; }
+.route-progress i { width: 6px; height: 6px; background: #b8c6b7; border-radius: 50%; }
+.route-progress span { position: absolute; left: 0; width: 6px; height: 6px; background: var(--button); border-radius: 50%; transition: left .55s ease; }
+.street-viewport[data-stage="approaching"] .route-progress span { left: 41px; }
+.street-viewport[data-stage="near"] .route-progress span { left: 82px; }
+.street-viewport[data-stage="passed"] .route-progress span { left: 123px; }
+.street-viewport .phone-frame { position: absolute; top: 34px; right: 42px; width: 330px; max-width: calc(100% - 40px); transform: rotate(1deg); box-shadow: 0 22px 50px #091e2b55; }
+.street-viewport .phone-screen { height: auto; }
+.street-viewport .phone-frame { bottom: 50px; display: flex; flex-direction: column; }
+.street-viewport .phone-screen { flex: 1; min-height: 0; }
+.phone-power { position: absolute; top: 42%; right: 4px; border: 0; padding: 11px 6px; font-size: 10px; color: var(--ink); background: #ffffffeb; writing-mode: vertical-rl; border-radius: 7px; letter-spacing: 1px; }
+.world-controls { position: absolute; bottom: 42px; left: 27px; width: auto; display: flex; gap: 13px; align-items: center; margin: 0; padding: 8px; background: #ffffffee; border-radius: 40px; box-shadow: 0 5px 20px #102c3025; }
+.walk-arrow { width: 45px; height: 45px; border: 0; border-radius: 50%; background: var(--ink); color: white; font-size: 24px; line-height: 1; display: grid; place-items: center; }
+#walk-instruction { min-width: 125px; text-align: center; font-size: 13px; font-weight: 600; }
+.scene-credits { position: absolute; bottom: 14px; left: 29px; color: #ffffffcf; font-size: 10px; }
+.demo-feedback { width: 100%; margin-top: 12px; }
+.web-limit { align-self: flex-start; margin-top: 0; }
+.photo-attribution { font-size: 10px; line-height: 1.7; color: var(--muted); padding-bottom: 24px; }
+@media (max-width: 1000px) {
+  .street-viewport .phone-frame { right: 30px; width: 310px; }
+  .journey-scene { max-width: 42%; }
+  .journey-label strong { font-size: 14px; }
+}
+@media (max-width: 760px) {
+  .hero-copy { display: block; }
+  .hero-copy h1 { font-size: 44px; margin-bottom: 20px; }
+  .hero-copy h1 br:nth-child(2) { display: none; }
+  .hero-description { font-size: 15px; }
+  .street-viewport { height: clamp(510px, 93svh, 740px); border-radius: 22px; }
+  .street-panorama { bottom: auto; height: 47%; }
+  .street-viewport { background: linear-gradient(#a8cbd5 40%, #587478 63%, #2b4342); }
+  .street-viewport .phone-frame { top: 27%; bottom: 68px; width: min(70%, 285px); right: 8%; transform: none; }
+  .scene-caption { top: 12px; left: 12px; font-size: 10px; }
+  .scene-pin { padding: 6px 10px; }
+  .journey-scene { left: 12px; top: 52px; max-width: calc(100% - 24px); padding: 8px 11px; }
+  .journey-label { font-size: 10px; }
+  .journey-label strong { font-size: 12px; }
+  .route-progress { display: none; }
+  .phone-power { right: 1%; padding: 9px 4px; min-height: 44px; }
+  .world-controls { left: 50%; bottom: 20px; transform: translateX(-50%); gap: 8px; padding: 4px; }
+  .walk-arrow { width: 40px; height: 40px; font-size: 20px; }
+  #walk-instruction { min-width: 118px; font-size: 12px; }
+  .scene-credits { left: 10px; bottom: 4px; font-size: 8px; }
+  .street-photo { object-position: 28% 61%; }
+  .device-launcher { padding: 12px; }
+  .launcher-clock { font-size: 29px; }
+  .launcher-wallpaper { margin: 9px 0; max-height: 132px; }
+  .device-launcher > p { margin: 12px 0 6px; }
+  .warning-panel h3 { font-size: 20px; margin: 14px 0 20px; }
+  .phone-overlay { padding: 14px; }
+  .result-panel { padding: 16px 10px; }
+  .result-panel h3 { font-size: 19px; }
+
+}
+@media (prefers-reduced-motion: reduce) {
+  .street-photo, .route-progress span { transition: none; }
+}
