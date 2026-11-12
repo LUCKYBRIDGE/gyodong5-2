@@ -22,7 +22,10 @@
         <h1 id="hero-title">횡단보도 앞,<br>휴대폰은<br><span>잠깐 쉬어요.</span></h1>
         <p class="hero-description">길을 살피는 작은 습관에 포인트가 쌓이고,<br class="desktop-break"> 하슬랑도 함께 자라요.</p>
         <p class="classroom-note">“강릉의 보행자들이 어떻게 하면 더 안전하게 길을 다닐 수 있을까?”<br>5난초 학생들의 토의에서 시작한 경고 알림과 보상체계입니다.</p>
-        <a class="web-jump" href="#experience">설치 없이 웹에서 먼저 체험하기 <span aria-hidden="true">↓</span></a>
+        <div class="experience-links">
+          <a class="web-jump" href="#experience">횡단보도 체험 <span aria-hidden="true">↓</span></a>
+          <a class="web-jump" href="#app-preview">평소 앱 둘러보기 <span aria-hidden="true">↓</span></a>
+        </div>
         <div class="download-area" id="download">
           <div class="download-actions">
             <a class="button button-dark download-button" href="downloads/traffic-demo.apk" download>안드로이드 APK 다운로드 <span aria-hidden="true">↓</span></a>
@@ -36,7 +39,7 @@
         </div>
       </div>
       <div class="experience" id="experience">
-        <div class="experience-heading"><h2>지금, 웹에서 먼저 해보세요</h2><span class="live-dot" aria-hidden="true"></span></div>
+        <div class="experience-heading"><h2>횡단보도 체험</h2><span class="live-dot" aria-hidden="true"></span></div>
         <div class="street-viewport" id="street-viewport" data-stage="away">
           <div class="street-panorama" aria-hidden="true">
             <img class="street-photo" src="assets/gangneung-crosswalk-open-scene.jpg" alt="">
@@ -65,24 +68,51 @@
           </div>
         </div>
         <div class="demo-feedback"><p id="demo-status" role="status" aria-live="polite">오른쪽 화살표로 앞으로 걸어가 보세요.</p><button id="reset-demo" type="button">처음부터</button></div>
-        <p class="web-limit">안전한 곳에서는 휴대폰의 앱 아이콘을 눌러 보세요.</p>
+        <p class="web-limit">횡단보도에서 벗어나면 휴대폰 홈에서 앱을 열 수 있어요.</p>
       </div>
+    </section>
+    <section class="app-preview shell" id="app-preview" aria-labelledby="preview-title">
+      <div class="preview-copy">
+        <p class="eyebrow">평소 앱 둘러보기</p>
+        <h2 id="preview-title">앱을 열면<br>무엇을 볼 수 있을까요?</h2>
+        <p>걷기 체험을 시작하지 않아도 앱을 열어 볼 수 있어요. 아래 메뉴에서 내 포인트, 상점, 교통안전 칭호, 하슬랑을 살펴보세요.</p>
+        <p>횡단보도 체험에서 모은 포인트가 여기에 표시돼요.</p>
+        <dl class="app-tab-guide">
+          <div><dt>홈</dt><dd>사용 가능 포인트, 누적 점수, 오늘 적립 횟수를 확인해요.</dd></div>
+          <div><dt>상점</dt><dd>가상 아이템을 교환하고 편의점 교환권 예시를 살펴봐요.</dd></div>
+          <div><dt>칭호</dt><dd>완료한 알림 횟수에 따라 얻는 교통안전 칭호를 확인해요.</dd></div>
+          <div><dt>하슬랑</dt><dd>성장 모습을 보고 상점에서 모은 아이템을 착용해요.</dd></div>
+          <div><dt>안내</dt><dd>비콘 감지와 경고 표시, 포인트 적립 기준을 살펴봐요.</dd></div>
+        </dl>
+      </div>
+      <div class="phone-frame preview-phone" aria-label="평소 횡단보도 알림 앱">
+        <div class="phone-screen">
+          <div class="phone-status" aria-hidden="true"><span>9:41</span><span class="phone-camera"></span><span>▰</span></div>
+          <div class="phone-brand"><span class="mini-crossing" aria-hidden="true">▰</span><span>횡단보도 알림</span></div>
+          <div id="preview-content" class="phone-content" tabindex="0"></div>
+          <nav id="preview-nav" class="phone-nav" aria-label="평소 앱 메뉴"></nav>
+          <div class="phone-home-bar" aria-hidden="true"></div>
+        </div>
+      </div>
+      <p id="preview-status" class="preview-status" role="status"></p>
     </section>
     <section class="how-section" aria-labelledby="how-title">
       <div class="shell how-inner">
-        <div class="how-heading"><p class="eyebrow">적립 기준은 간단해요</p><h2 id="how-title">횡단보도 앞에서,<br>이렇게 함께해요.</h2></div>
+        <div class="how-heading"><p class="eyebrow">횡단보도 체험 안내</p><h2 id="how-title">경고와 포인트는<br>어떻게 작동할까요?</h2></div>
         <div class="rule-cards">
-          <article class="rule-card"><span class="rule-glyph" aria-hidden="true">◼</span><h3>이미 화면을 껐다면</h3><p>비콘 가까이에서 화면을 끈 상태를 유지해요. 휴대폰을 다시 켤 필요 없이 포인트가 쌓여요.</p></article>
-          <article class="rule-card"><span class="rule-glyph" aria-hidden="true">▤</span><h3>휴대폰을 보고 있었다면</h3><p>“횡단보도 앞입니다. 주변을 봐주세요.” 경고창을 닫지 않고 주변을 살펴요.</p></article>
+          <article class="rule-card"><h3>횡단보도 앞에서 경고</h3><p>가상 비콘 범위에 들어오면 영상이나 메신저 위에 “횡단보도 앞입니다. 주변을 봐주세요.”가 떠요.</p></article>
+          <article class="rule-card"><h3>10초가 지나면 10점</h3><p>경고를 닫지 않고 숫자가 끝날 때까지 기다리면 자동으로 적립돼요. 화면을 끈 채 기다려도 적립되며 하루 최대 3회예요.</p></article>
+          <article class="rule-card"><h3>경고를 먼저 닫으면</h3><p>“앗! 아쉬워요. 주변을 조심하세요.”가 떠요. 10초 전에 경고를 닫거나 범위를 벗어나면 이번 포인트는 지급되지 않아요.</p></article>
         </div>
       </div>
     </section>
     <section class="screenshots shell" aria-labelledby="screenshots-title">
       <div class="section-heading"><div><p class="eyebrow">실제 안드로이드 시제품</p><h2 id="screenshots-title">휴대폰에서는 이런 모습이에요.</h2></div><p>10초 유지 시 10점, 하루 최대 3회.<br>하슬랑은 누적 기록에 따라 성장해요.</p></div>
       <div class="screenshot-grid">
-        <figure><div class="screenshot-wrap"><img src="assets/home.png" alt="포인트와 하슬랑이 함께 보이는 앱 홈 화면" loading="lazy" width="1440" height="3120"></div><figcaption>포인트와 오늘의 기록</figcaption></figure>
-        <figure><div class="screenshot-wrap"><img src="assets/warning.png" alt="횡단보도 앞입니다. 주변을 봐주세요라는 경고 화면" loading="lazy" width="1440" height="3120"></div><figcaption>다른 앱 위에 뜨는 경고</figcaption></figure>
-        <figure><div class="screenshot-wrap"><img src="assets/avatar.png" alt="칭호와 아이템에 따라 성장하는 픽셀 하슬랑 화면" loading="lazy" width="1440" height="3120"></div><figcaption>함께 자라는 하슬랑</figcaption></figure>
+        <figure><a class="screenshot-wrap" href="assets/home.png" target="_blank" rel="noopener"><img src="assets/home.png" alt="포인트와 하슬랑이 함께 보이는 앱 홈 화면" loading="lazy" width="1440" height="3120"></a><figcaption>포인트와 오늘의 기록</figcaption></figure>
+        <figure><a class="screenshot-wrap" href="assets/warning.png" target="_blank" rel="noopener"><img src="assets/warning.png" alt="횡단보도 앞입니다. 주변을 봐주세요라는 경고 화면" loading="lazy" width="1440" height="3120"></a><figcaption>다른 앱 위에 뜨는 경고</figcaption></figure>
+        <figure><a class="screenshot-wrap" href="assets/reward.png" target="_blank" rel="noopener"><img src="assets/reward.png" alt="다른 앱 위에 뜬 10포인트 자동 적립 화면" loading="lazy" width="1440" height="3120"></a><figcaption>10포인트 자동 적립</figcaption></figure>
+        <figure><a class="screenshot-wrap" href="assets/avatar.png" target="_blank" rel="noopener"><img src="assets/avatar.png" alt="칭호와 아이템에 따라 성장하는 픽셀 하슬랑 화면" loading="lazy" width="1440" height="3120"></a><figcaption>함께 자라는 하슬랑</figcaption></figure>
       </div>
     </section>
   </main>

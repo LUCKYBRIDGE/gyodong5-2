@@ -403,3 +403,66 @@ h1 span::after { content: ''; position: absolute; left: -3px; bottom: 4px; width
 @media (prefers-reduced-motion: reduce) {
   .street-photo, .route-progress span { transition: none; }
 }
+
+.experience-links { display: flex; flex-wrap: wrap; gap: 8px 24px; }
+.experience-links .web-jump { white-space: nowrap; }
+.phone-media { min-height: 100%; background: #fff; color: #192420; }
+.media-switch { display: flex; gap: 7px; padding: 12px 13px; }
+.media-switch button { flex: 1; min-height: 36px; border: 0; border-radius: 20px; background: #edf1ee; color: #43564f; font-size: 12px; font-weight: 700; }
+.media-switch button[aria-pressed="true"] { background: var(--ink); color: white; }
+.sample-player { position: relative; aspect-ratio: 16 / 10; overflow: hidden; background: #132b35; }
+.sample-film { position: absolute; inset: 0; background: url("assets/gangneung-crosswalk-open-scene.jpg") center 48% / cover; animation: sample-pan 18s ease-in-out infinite alternate; animation-play-state: paused; }
+.sample-player.is-playing .sample-film, .sample-player.is-playing .sample-progress::after { animation-play-state: running; }
+@keyframes sample-pan { from { transform: scale(1.02); } to { transform: scale(1.23) translateX(3%); } }
+.sample-play { position: absolute; left: 10px; bottom: 13px; display: grid; place-items: center; width: 34px; height: 34px; background: #172321d9; color: white; border: 0; border-radius: 50%; font-size: 14px; }
+.sample-progress { position: absolute; left: 0; right: 0; bottom: 0; height: 3px; background: #ffffff80; }
+.sample-progress::after { content: ""; display: block; height: 100%; background: #ef5956; transform-origin: left; animation: sample-progress 18s linear infinite; animation-play-state: paused; }
+.phone-content[inert] .sample-player.is-playing .sample-film,
+.phone-content[inert] .sample-player.is-playing .sample-progress::after { animation-play-state: paused; }
+@keyframes sample-progress { from { transform: scaleX(.05); } to { transform: scaleX(1); } }
+.phone-media h3 { margin: 16px 14px 4px; font-size: 17px; line-height: 1.35; }
+.media-caption { margin: 0 14px; color: var(--muted); font-size: 11px; }
+.media-author { display: flex; align-items: center; gap: 9px; margin: 14px; padding-top: 12px; border-top: 1px solid var(--line); font-size: 12px; }
+.media-author span { display: grid; place-items: center; width: 30px; height: 30px; background: var(--lime); border-radius: 50%; }
+.chat-header { display: flex; justify-content: space-between; align-items: center; padding: 12px; color: #25424d; background: #e2edf2; font-size: 13px; }
+.chat-header span { font-size: 10px; }
+.chat-thread { min-height: 200px; padding: 12px; background: #eaf4f7; display: flex; flex-direction: column; gap: 11px; }
+.chat-thread p { align-self: flex-start; margin: 0; padding: 8px 10px; border-radius: 12px; background: white; font-size: 12px; line-height: 1.55; }
+.chat-thread .chat-mine { align-self: flex-end; background: #f9eb9b; }
+.warning-panel h3 { margin-bottom: 14px; }
+.warning-clock { display: grid; place-items: center; gap: 3px; margin-bottom: 15px; }
+.warning-clock span { color: white; font-size: clamp(34px, 7vh, 53px); line-height: 1; font-weight: 800; font-variant-numeric: tabular-nums; }
+.warning-clock small { color: #c7d7d6; font-size: 12px; }
+.app-preview { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 356px); align-items: center; gap: clamp(24px, 6vw, 80px); padding: 40px clamp(20px, 7vw, 100px); margin-bottom: 56px; background: #eaf0e5; border: 1px solid var(--line); border-radius: 26px; scroll-margin-top: 16px; }
+.preview-copy .eyebrow { margin-bottom: 14px; }
+.preview-copy h2 { font-size: clamp(27px, 4vw, 43px); line-height: 1.3; letter-spacing: -.04em; margin: 0 0 16px; }
+.preview-copy > p:not(.eyebrow) { max-width: 36ch; font-size: 14px; color: var(--muted); line-height: 1.8; margin: 0 0 8px; }
+.preview-phone { justify-self: center; }
+.preview-phone .phone-screen { height: clamp(410px, 75svh, 600px); }
+.preview-walk { display: grid; place-items: center; text-decoration: none; }
+.preview-status { grid-column: 1 / -1; margin: 0; color: var(--muted); font-size: 13px; }
+.preview-status:empty { display: none; }
+@media (max-width: 760px) {
+  .app-preview { grid-template-columns: minmax(0, 1fr); padding: 22px 12px; gap: 18px; }
+  .preview-copy { padding: 0 8px; }
+  .warning-panel h3 { margin: 9px 0 12px; }
+  .warning-crosswalk { padding: 7px 12px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .sample-player.is-playing .sample-film, .sample-player.is-playing .sample-progress::after { animation: none; }
+}
+
+.app-tab-guide { margin: 22px 0 0; font-size: 13px; }
+.app-tab-guide > div { display: grid; grid-template-columns: 49px 1fr; gap: 8px; padding: 9px 0; border-top: 1px solid var(--line); }
+.app-tab-guide dt { font-weight: 800; }
+.app-tab-guide dd { margin: 0; color: var(--muted); line-height: 1.65; }
+.rule-cards { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.rule-card { padding: 0; }
+.screenshot-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.screenshot-wrap { display: grid; place-items: center; height: auto; padding: clamp(7px, 2vw, 17px); overflow: visible; }
+.screenshot-wrap img { width: 100%; height: auto; aspect-ratio: 1440 / 3120; object-fit: contain; border-radius: 12px; }
+@media (max-width: 760px) {
+  .rule-cards { grid-template-columns: 1fr; gap: 17px; }
+  .screenshot-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px 12px; }
+  .screenshot-grid figcaption { font-size: 12px; }
+}

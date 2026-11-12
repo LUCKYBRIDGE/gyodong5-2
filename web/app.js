@@ -1,6 +1,6 @@
 import { drawAvatar } from "./avatar.js";
 import {
-  REWARD, DAILY_LIMIT, HOLD_TIME, TITLES, ITEMS, today, initialState,
+  REWARD, DAILY_LIMIT, HOLD_TIME, TITLES, ITEMS, initialState,
   normalizeState, award, redeem, toggleEquipment, currentTitle,
 } from "./rewards.js";
 
@@ -8,12 +8,20 @@ const STORAGE_KEY = "gyodong5-2-web-prototype-v1";
 const content = document.querySelector("#phone-content");
 const navigation = document.querySelector("#phone-nav");
 const status = document.querySelector("#demo-status");
+const preview = document.querySelector("#app-preview");
+const previewContent = document.querySelector("#preview-content");
+const previewNavigation = document.querySelector("#preview-nav");
+const previewStatus = document.querySelector("#preview-status");
 const pages = [["home", "홈"], ["shop", "상점"], ["titles", "칭호"], ["avatar", "하슬랑"], ["guide", "안내"]];
 let stored;
 try { stored = JSON.parse(localStorage.getItem(STORAGE_KEY)); } catch { stored = null; }
 let state = normalizeState(stored);
 let page = "home";
-let surface = "launcher";
+let surface = "reading";
+let media = "video";
+let playing = true;
+let previewPage = "home";
+let standaloneGrowth = null;
 let locationStage = "away";
 let deviceOff = false;
 let trial = null;
@@ -39,7 +47,7 @@ function canvasMarkup(className = "") {
 function titleHeading(heading, description) {
   return `<div class="app-heading"><h3>${heading}</h3><p>${description}</p></div>`;
 }
-function home() {
+function home(standalone) {
   const title = currentTitle(state.total);
   return `<section class="points-hero">
     <div class="wallet"><p>사용 가능한 포인트</p><strong data-balance>${money(state.total - state.spent)}<small>점</small></strong></div>
@@ -48,9 +56,9 @@ function home() {
   </section>
   <button class="app-card shortcut" data-page="titles"><span><b>교통안전 칭호</b><small>${title.label}</small></span><span class="text-action">칭호 보기 ↗</span></button>
   <button class="app-card shortcut" data-page="shop"><span><b>포인트 상점</b><small>교환권 예시와 하슬랑 꾸미기</small></span><span class="text-action">상점 보기 ↗</span></button>
-  <section class="app-card trial-card"><h4>가상 비콘 체험</h4><p>다른 화면을 보며 걷는 상황을 체험해 보세요. 가까이에서 화면을 끄거나 경고를 10초 유지하면 10점이 쌓여요.</p>
-    <button class="app-button" data-start="warning">가상 접근 시작</button>
-  </section>`;
+  ${standalone ? '<a class="app-button preview-walk" href="#experience">횡단보도 체험으로 이동</a>' : `<section class="app-card trial-card"><h4>가상 비콘 체험</h4><p>다른 화면을 보며 걷는 상황을 체험해 보세요. 가까이에서 화면을 끄거나 경고를 10초 유지하면 10점이 쌓여요.</p>
+    <button class="app-button" data-start>가상 접근 시작</button>
+  </section>`}`;
 }
 function shop() {
   return `${titleHeading("포인트 상점", "웹에서 모은 포인트로 꾸미기를 체험해요.")}
@@ -68,12 +76,12 @@ function titles() {
   return `${titleHeading("교통안전 칭호", "완료한 알림 기록이 하슬랑의 성장이 돼요.")}
   ${TITLES.slice(1).map((entry) => `<section class="app-card title-card"><div class="title-line"><span class="item-symbol" aria-hidden="true">${["", "✦", "▤", "◆"][entry.level]}</span><h4>${entry.label}</h4><span>${title.level === entry.level ? "현재 칭호" : title.level > entry.level ? "획득" : "잠김"}</span></div><progress value="${Math.min(state.total, entry.threshold)}" max="${entry.threshold}" aria-label="${entry.label} 성장 진행"></progress><small>완료한 알림 ${Math.min(state.total, entry.threshold) / REWARD} / ${entry.threshold / REWARD}회</small></section>`).join("")}`;
 }
-function avatar() {
+function avatar(growth) {
   const actual = currentTitle(state.total);
-  const displayed = previewLevel === null ? actual : TITLES[previewLevel];
+  const displayed = growth === null ? actual : TITLES[growth];
   const next = TITLES.find((entry) => entry.threshold > state.total);
   return `${titleHeading("하슬랑 키우기", "횡단보도 알림을 잘 이용할 때마다 자라요.")}
-  <section class="app-card avatar-stage">${canvasMarkup("large")}<h4>${displayed.label}</h4><p>${previewLevel === null ? next ? `다음 칭호까지 알림 ${Math.ceil((next.threshold - state.total) / REWARD)}회` : "가장 높은 칭호에 도달했어요." : "성장 모습 미리보기"}</p></section>
+  <section class="app-card avatar-stage">${canvasMarkup("large")}<h4>${displayed.label}</h4><p>${growth === null ? next ? `다음 칭호까지 알림 ${Math.ceil((next.threshold - state.total) / REWARD)}회` : "가장 높은 칭호에 도달했어요." : "성장 모습 미리보기"}</p></section>
   <fieldset class="growth-preview"><legend>성장 모습 미리보기</legend><div>${TITLES.map((entry) => `<button data-preview="${entry.level}" aria-pressed="${displayed.level === entry.level}">${entry.level + 1}단계</button>`).join("")}</div><button class="text-button" data-preview="actual">내 하슬랑 보기</button></fieldset>
   <h4 class="app-section-title">하슬랑 꾸미기</h4>
   ${ITEMS.map((item) => {
@@ -94,18 +102,31 @@ function launcher() {
     <div class="launcher-wallpaper">${canvasMarkup()}</div>
     <div class="launcher-apps">
       <button data-open-app class="launcher-icon"><span class="launcher-crossing" aria-hidden="true">▰ ▰ ▰</span><b>횡단보도 알림</b></button>
-      <button data-reading class="launcher-icon"><span class="launcher-browser" aria-hidden="true">◎</span><b>인터넷 체험</b></button>
+      <button data-reading class="launcher-icon"><span class="launcher-browser" aria-hidden="true">◎</span><b>영상·메신저</b></button>
     </div>
     <p>앱 아이콘을 눌러 내용을 살펴보세요.<br>이동은 거리 장면의 〈 〉 화살표로 해요.</p>
   </div>`;
 }
 function reading() {
-  return `<div class="mock-browser">
-    <div class="browser-address">◎ &nbsp; 강릉 산책 노트</div>
-    <p class="app-eyebrow">가상 인터넷 화면</p><h3>오늘은 바다까지<br>걸어가 볼까요?</h3>
-    <div class="reading-landscape" aria-hidden="true"><span>☀</span><div></div></div>
-    <h4>천천히 만나는 강릉</h4><p>골목을 지나 바다로 향하는 길.<br>잠시 후 횡단보도가 나와요.</p>
-    <div class="reading-lines" aria-hidden="true"><i></i><i></i><i></i></div>
+  return `<div class="phone-media">
+    <div class="media-switch" role="group" aria-label="가상 휴대폰에서 사용할 앱">
+      <button type="button" data-media="video" aria-pressed="${media === "video"}">영상</button>
+      <button type="button" data-media="chat" aria-pressed="${media === "chat"}">메신저</button>
+    </div>
+    ${media === "video" ? `<div class="sample-player ${playing ? "is-playing" : ""}">
+      <div class="sample-film" aria-hidden="true"></div>
+      <button class="sample-play" type="button" data-play aria-label="${playing ? "영상 일시정지" : "영상 재생"}">${playing ? "Ⅱ" : "▶"}</button>
+      <span class="sample-progress" aria-hidden="true"></span>
+    </div>
+    <h3>강릉역에서 시작하는 산책</h3>
+    <p class="media-caption">가상 영상 · 강릉 산책 노트</p>
+    <div class="media-author"><span aria-hidden="true">산</span><b>강릉 산책 노트</b></div>`
+    : `<div class="chat-header"><b>친구와의 대화</b><span>가상 메신저</span></div>
+    <div class="chat-thread">
+      <p>강릉역 앞에 도착했어?</p>
+      <p class="chat-mine">응, 광장 쪽으로 가고 있어.</p>
+      <p>그럼 역 입구에서 만나자!</p>
+    </div>`}
   </div>`;
 }
 function updateJourney() {
@@ -133,20 +154,45 @@ function updateJourney() {
   power.setAttribute("aria-label", "가상 휴대폰 " + power.textContent);
 }
 
-function render() {
-  state = normalizeState(state);
-  content.innerHTML = surface === "app" ? ({ home, shop, titles, avatar, guide })[page]()
-    : surface === "reading" ? reading() : launcher();
-  document.querySelector(".phone-brand").hidden = surface !== "app";
-  navigation.hidden = surface !== "app";
-  content.classList.toggle("device-content", surface !== "app");
-  updateJourney();
-  navigation.innerHTML = pages.map(([id, label]) => `<button data-page="${id}" aria-current="${page === id ? "page" : "false"}">${label}</button>`).join("");
-  content.querySelectorAll("canvas").forEach((canvas) => {
-    const level = page === "avatar" && previewLevel !== null ? previewLevel : currentTitle(state.total).level;
+function paintAvatars(target, currentPage, growth) {
+  const level = currentPage === "avatar" && growth !== null ? growth : currentTitle(state.total).level;
+  target.querySelectorAll("canvas").forEach((canvas) => {
     drawAvatar(canvas, level, state.equipped);
     canvas.setAttribute("aria-label", `${TITLES[level].label} 하슬랑 픽셀 캐릭터`);
   });
+}
+function renderApp(target, menu, currentPage, growth, standalone = false) {
+  const renderPage = {
+    home: () => home(standalone), shop, titles, avatar: () => avatar(growth), guide,
+  };
+  target.innerHTML = renderPage[currentPage]();
+  if (!menu.childElementCount) {
+    menu.innerHTML = pages.map(([id, label]) => `<button type="button" data-page="${id}">${label}</button>`).join("");
+  }
+  for (const button of menu.children) {
+    if (button.dataset.page === currentPage) button.setAttribute("aria-current", "page");
+    else button.removeAttribute("aria-current");
+  }
+  paintAvatars(target, currentPage, growth);
+}
+function renderPreview() {
+  renderApp(previewContent, previewNavigation, previewPage, standaloneGrowth, true);
+}
+function render({ refreshMedia = false } = {}) {
+  state = normalizeState(state);
+  const appOpen = surface === "app";
+  document.querySelector("#phone-demo .phone-brand").hidden = !appOpen;
+  navigation.hidden = !appOpen;
+  content.classList.toggle("device-content", !appOpen);
+  if (appOpen) renderApp(content, navigation, page, previewLevel);
+  else if (surface === "launcher") {
+    content.innerHTML = launcher();
+    paintAvatars(content, null, null);
+  } else if (refreshMedia || !content.querySelector(".phone-media")) {
+    content.innerHTML = reading();
+  }
+  updateJourney();
+  renderPreview();
 }
 function openPage(destination) {
   if (!pages.some(([id]) => id === destination)) return;
@@ -164,6 +210,8 @@ function clearTrial() {
   trial = null;
   document.querySelectorAll("[data-demo-panel]").forEach((element) => element.remove());
   overlay = null;
+  content.inert = false;
+  navigation.inert = false;
   updateJourney();
 }
 function announce(message) {
@@ -175,7 +223,9 @@ function showOverlay(html, className = "") {
   overlay.className = `phone-overlay ${className}`;
   overlay.dataset.demoPanel = "true";
   overlay.innerHTML = html;
-  document.querySelector(".phone-screen").append(overlay);
+  document.querySelector("#phone-demo .phone-screen").append(overlay);
+  content.inert = true;
+  navigation.inert = true;
   return overlay;
 }
 function showNotice(message) {
@@ -233,6 +283,8 @@ function toggleScreen() {
   } else {
     document.querySelectorAll("[data-demo-panel]").forEach((panel) => panel.remove());
     overlay = null;
+    content.inert = false;
+    navigation.inert = false;
     if (trial) {
       trial = { ...trial, mode: "warning" };
       showWarning();
@@ -241,7 +293,7 @@ function toggleScreen() {
   updateJourney();
 }
 function showWarning() {
-  const warning = showOverlay(`<div class="warning-panel" role="dialog" aria-label="횡단보도 경고"><span class="warning-crosswalk" aria-hidden="true">▰ ▰ ▰</span><h3>횡단보도 앞입니다.<br>주변을 봐주세요.</h3><button data-dismiss-warning>경고 닫기</button></div>`, "warning-overlay");
+  const warning = showOverlay(`<div class="warning-panel" role="dialog" aria-label="횡단보도 경고"><span class="warning-crosswalk" aria-hidden="true">▰ ▰ ▰</span><h3>횡단보도 앞입니다.<br>주변을 봐주세요.</h3><div class="warning-clock"><span data-countdown role="timer" aria-label="적립까지 남은 초">${Math.ceil(HOLD_TIME / 1000)}</span><small>초 뒤 적립</small></div><button data-dismiss-warning>경고 닫기</button></div>`, "warning-overlay");
   warning.querySelector("button").focus({ preventScroll: true });
 }
 function tick() {
@@ -252,6 +304,8 @@ function tick() {
     return;
   }
   const left = Math.ceil((HOLD_TIME - elapsed) / 1000);
+  const countdown = overlay?.querySelector("[data-countdown]");
+  if (countdown && countdown.textContent !== String(left)) countdown.textContent = left;
   const message = `가상 비콘 범위 안 · ${left}초 뒤 적립 · ${deviceOff ? "화면 꺼짐" : "경고 유지 중"}`;
   if (status.textContent !== message) announce(message);
 }
@@ -282,7 +336,26 @@ function arrive() {
 document.addEventListener("click", (event) => {
   const button = event.target.closest("button");
   if (!button) return;
-  if (button.dataset.page) openPage(button.dataset.page);
+  const inPreview = preview.contains(button);
+  if (button.dataset.page) {
+    if (inPreview) {
+      previewPage = button.dataset.page;
+      standaloneGrowth = null;
+      renderPreview();
+      previewContent.scrollTop = 0;
+    } else openPage(button.dataset.page);
+  }
+  if (button.dataset.media) {
+    media = button.dataset.media;
+    render({ refreshMedia: true });
+    content.querySelector(`[data-media="${media}"]`)?.focus({ preventScroll: true });
+  }
+  if (button.hasAttribute("data-play")) {
+    playing = !playing;
+    content.querySelector(".sample-player").classList.toggle("is-playing", playing);
+    button.setAttribute("aria-label", playing ? "영상 일시정지" : "영상 재생");
+    button.textContent = playing ? "Ⅱ" : "▶";
+  }
   if (button.hasAttribute("data-open-app")) {
     if (trial || locationStage === "near") {
       showNotice("횡단보도에서 벗어난 뒤 앱을 열어 보세요.");
@@ -292,7 +365,7 @@ document.addEventListener("click", (event) => {
   }
   if (button.hasAttribute("data-reading")) { surface = "reading"; render(); }
   if (button.hasAttribute("data-device-home") && !overlay) { surface = "launcher"; render(); }
-  if (button.dataset.start) {
+  if (button.hasAttribute("data-start")) {
     startTrial();
     document.querySelector("#experience").scrollIntoView({ block: "start" });
   }
@@ -306,13 +379,20 @@ document.addEventListener("click", (event) => {
     if (next !== state) {
       save(next);
       render();
-      showNotice("가상 아이템을 모았어요. 하슬랑에게 입혀 보세요.");
+      if (inPreview) previewStatus.textContent = "가상 아이템을 모았어요. 하슬랑에게 입혀 보세요.";
+      else showNotice("가상 아이템을 모았어요. 하슬랑에게 입혀 보세요.");
     }
   }
   if (button.dataset.equip) { save(toggleEquipment(state, button.dataset.equip)); render(); }
   if (button.dataset.preview) {
-    previewLevel = button.dataset.preview === "actual" ? null : Number(button.dataset.preview);
-    render();
+    const level = button.dataset.preview === "actual" ? null : Number(button.dataset.preview);
+    if (inPreview) {
+      standaloneGrowth = level;
+      renderPreview();
+    } else {
+      previewLevel = level;
+      render();
+    }
   }
 });
 document.querySelector("#start-demo").addEventListener("click", () => {
@@ -321,7 +401,7 @@ document.querySelector("#start-demo").addEventListener("click", () => {
   else if (locationStage === "near") depart();
   else if (locationStage === "passed") {
     locationStage = "away";
-    surface = "launcher";
+    surface = "reading";
     render();
     if (deviceOff) showScreenOff();
     announce("다시 산책을 시작할 수 있어요.");
@@ -331,7 +411,7 @@ document.querySelector("#walk-back").addEventListener("click", () => {
   const cancelled = !!trial || arrivalTimer !== null;
   clearTrial();
   locationStage = "away";
-  surface = "launcher";
+  surface = "reading";
   render();
   if (deviceOff) showScreenOff();
   announce(cancelled ? "횡단보도에서 멀어져 이번 적립을 멈췄어요." : "강릉역 앞 산책 시작 지점으로 돌아왔어요.");
@@ -342,11 +422,15 @@ document.querySelector("#reset-demo").addEventListener("click", () => {
   clearTrial();
   save(initialState());
   page = "home";
-  surface = "launcher";
+  surface = "reading";
   locationStage = "away";
+  media = "video";
+  playing = true;
   deviceOff = false;
   previewLevel = null;
-  render();
+  standaloneGrowth = null;
+  previewStatus.textContent = "";
+  render({ refreshMedia: true });
   showNotice("웹 체험 기록을 처음으로 돌렸어요.");
 });
 const installDialog = document.querySelector("#install-dialog");
