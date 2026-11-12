@@ -290,18 +290,51 @@ h1 span::after { content: ''; position: absolute; left: -3px; bottom: 4px; width
 /* The walking scene surrounds the phone; app screens retain the Android prototype layout. */
 .phone-brand[hidden], .phone-nav[hidden] { display: none; }
 .device-content { padding: 0; }
-.device-launcher { min-height: 100%; display: flex; flex-direction: column; padding: 24px 24px 17px; background: linear-gradient(#f3e0ba, #dbebd1 62%, #c0d8c6); text-align: center; }
-.launcher-clock { font-size: 42px; line-height: 1; font-weight: 600; letter-spacing: -2px; }
-.launcher-clock small { display: block; margin-top: 8px; font-size: 11px; letter-spacing: 0; font-weight: 400; }
-.launcher-wallpaper { margin: 24px 0 17px; border-radius: 16px; overflow: hidden; }
-.launcher-apps { display: flex; justify-content: center; gap: 30px; }
-.launcher-icon { border: 0; background: transparent; display: flex; flex-direction: column; align-items: center; padding: 0; gap: 8px; color: var(--ink); }
-.launcher-icon > span { width: 53px; height: 53px; display: grid; place-items: center; border-radius: 15px; font-size: 19px; box-shadow: 0 3px 8px #19372d12; }
-.launcher-crossing { background: var(--lime); }
-.launcher-browser { background: white; font-size: 32px !important; color: #397f92; }
-.launcher-icon b { font-size: 10px; font-weight: 500; }
-.device-launcher > p { font-size: 10px; color: #44594e; line-height: 1.6; margin: 23px 0 12px; }
-.device-launcher > .app-button { margin-top: auto; }
+/* Home screen of the simulated phone */
+.device-launcher {
+  min-height: 100%; padding: clamp(15px, 4vh, 35px) 13px 14px; text-align: center;
+  color: #f7fbff;
+  background: radial-gradient(ellipse at 90% 15%, #748eb3 0%, transparent 51%),
+    radial-gradient(ellipse at 0% 105%, #527b87 0%, transparent 57%),
+    linear-gradient(150deg, #24354f, #354a70 55%, #26364e);
+}
+.launcher-clock { font-size: clamp(36px, 7vh, 56px); line-height: 1; font-weight: 600; letter-spacing: -.06em; }
+.launcher-hint {
+  margin: clamp(11px, 2.2vh, 21px) auto; max-width: 30ch;
+  padding: 9px 12px; border: 1px solid #f8ffdb6b; border-radius: 13px; background: #213145d6;
+  color: #f6ffdc; font-size: 11px; font-weight: 650; line-height: 1.55;
+}
+.launcher-apps { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); row-gap: clamp(12px, 3vh, 29px); justify-items: stretch; }
+.launcher-icon { border: 0; border-radius: 10px; background: transparent; display: grid; justify-items: center; align-content: start; padding: 4px 0; gap: 7px; color: inherit; }
+.launcher-icon:hover { background: #ffffff15; }
+.launcher-icon b { font-size: clamp(9px, 2.8vw, 11px); font-weight: 650; }
+.launcher-icon .launcher-glyph { position: relative; width: 47px; height: 47px; display: grid; place-items: center; border-radius: 13px; box-shadow: 0 4px 12px #14213838; }
+.launcher-featured .launcher-crossing {
+  display: flex; transform: none; isolation: isolate;
+  background: linear-gradient(145deg, #f5ffd3, #b9e995);
+  outline: 1px solid #e6ffc0; box-shadow: 0 0 0 4px #e6ffc04d, 0 0 21px #e6ffc0a0, 0 5px 12px #14213855;
+}
+.launcher-crossing::after {
+  content: "✦"; position: absolute; top: -8px; right: -6px; color: #f7ffd5; font-size: 17px;
+  text-shadow: 0 0 8px #f6ffac; animation: launcher-sparkle 2.8s ease-in-out infinite;
+}
+@keyframes launcher-sparkle { 50% { opacity: .55; transform: scale(.82); } }
+.icon-talk { background: #ffe624; color: #211b22; }
+.icon-talk i { position: relative; padding: 6px 4px; border-radius: 50%; background: #291d20; color: #ffe624; font: 800 8px/1 sans-serif; }
+.icon-talk i::after { content: ""; position: absolute; left: 7px; bottom: -4px; border: 4px solid transparent; border-left-color: #291d20; transform: rotate(15deg); }
+.icon-camera { background: linear-gradient(#eceff5, #a6b1c5); }
+.icon-camera i { display: grid; place-items: center; width: 28px; height: 20px; border-radius: 5px; background: #263148; }
+.icon-camera i::after { content: ""; width: 10px; height: 10px; border: 2px solid #bfcbdf; border-radius: 50%; background: #2b5374; }
+.icon-chrome, .icon-video, .icon-photos { background: #fff; }
+.icon-chrome i { width: 31px; height: 31px; display: grid; place-items: center; border-radius: 50%; background: conic-gradient(#eb4335 0 33%, #fbbc05 33% 66%, #34a853 66%); }
+.icon-chrome i::after { content: ""; width: 13px; height: 13px; border: 2px solid white; border-radius: 50%; background: #4285f4; }
+.icon-video i { padding: 5px 7px; border-radius: 6px; background: #dd2837; color: #fff; font: normal 9px/1 sans-serif; }
+.icon-photos i { width: 26px; height: 26px; border-radius: 50%; background: conic-gradient(#f77c78, #ffce56, #8dd38a, #7caaea, #cb95ec, #f77c78); }
+.phone-media--gallery figure, .phone-media--browser figure { margin: 12px 14px; }
+.phone-media--gallery img, .phone-media--browser img { display: block; width: 100%; border-radius: 8px; }
+.phone-media--gallery figcaption { margin-top: 8px; color: var(--muted); font-size: 10px; }
+.phone-media--browser .browser-address { margin: 12px 14px; }
+@media (prefers-reduced-motion: reduce) { .launcher-crossing::after { animation: none; } }
 .mock-browser { min-height: 100%; padding: 0 20px 20px; background: #fffdf8; }
 .browser-address { background: #e9eeea; padding: 11px 15px; border-radius: 30px; font-size: 10px; margin-bottom: 28px; margin-top: 10px; }
 .mock-browser h3 { font-size: 29px; line-height: 1.35; margin: 12px 0 24px; letter-spacing: -1.5px; }
@@ -386,8 +419,6 @@ h1 span::after { content: ''; position: absolute; left: -3px; bottom: 4px; width
   .street-photo { object-position: 28% 61%; }
   .device-launcher { padding: 12px; }
   .launcher-clock { font-size: 29px; }
-  .launcher-wallpaper { margin: 9px 0; max-height: 132px; }
-  .device-launcher > p { margin: 12px 0 6px; }
   .points-hero { grid-template-columns: minmax(0, 1fr) 72px; padding: 14px; gap: 12px 6px; }
   .wallet p { font-size: 10px; }
   .wallet strong { font-size: 28px; white-space: nowrap; }
@@ -490,7 +521,4 @@ h1 span::after { content: ''; position: absolute; left: -3px; bottom: 4px; width
 .phone-media--chat .chat-thread { background: #e1edf7; }
 .phone-media--chat .chat-mine { background: #ffed9c; }
 #phone-demo .phone-screen[data-surface="launcher"],
-#phone-demo .phone-screen[data-surface="launcher"] .phone-home-button { background: #e7eaf4; color: #232d42; }
-.device-launcher { background: linear-gradient(#e7eaf4, #bdcce7); }
-.device-launcher > p { color: #374665; }
-.launcher-wallpaper { aspect-ratio: 16 / 10; background: url("assets/gangneung-crosswalk-open-scene.jpg") center / cover; }
+#phone-demo .phone-screen[data-surface="launcher"] .phone-home-button { background: #26364e; color: #f7fbff; }

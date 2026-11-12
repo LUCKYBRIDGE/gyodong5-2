@@ -98,16 +98,34 @@ function guide() {
 
 function launcher() {
   return `<div class="device-launcher">
-    <div class="launcher-clock">9:41<small>강릉에서의 산책</small></div>
-    <div class="launcher-wallpaper" aria-hidden="true"></div>
-    <div class="launcher-apps">
-      <button data-open-app class="launcher-icon"><span class="launcher-crossing" aria-hidden="true">▰ ▰ ▰</span><b>횡단보도 알림</b></button>
-      <button data-reading class="launcher-icon"><span class="launcher-browser" aria-hidden="true">◎</span><b>영상·메신저</b></button>
+    <div class="launcher-clock" aria-hidden="true">9:41</div>
+    <p class="launcher-hint" id="launcher-hint">‘횡단보도 알림’ 아이콘을 눌러<br>모은 포인트를 확인해 보세요.</p>
+    <div class="launcher-apps" role="group" aria-label="가상 휴대폰의 앱 아이콘">
+      <button type="button" data-media="chat" class="launcher-icon"><span class="launcher-glyph icon-talk" aria-hidden="true"><i>TALK</i></span><b>카카오톡</b></button>
+      <button type="button" data-media="camera" class="launcher-icon"><span class="launcher-glyph icon-camera" aria-hidden="true"><i></i></span><b>카메라</b></button>
+      <button type="button" data-media="browser" class="launcher-icon"><span class="launcher-glyph icon-chrome" aria-hidden="true"><i></i></span><b>크롬</b></button>
+      <button type="button" data-media="video" class="launcher-icon"><span class="launcher-glyph icon-video" aria-hidden="true"><i>▶</i></span><b>영상</b></button>
+      <button type="button" data-open-app class="launcher-icon launcher-featured" aria-describedby="launcher-hint"><span class="launcher-glyph launcher-crossing crossing-mark" aria-hidden="true"><i></i><i></i><i></i><i></i></span><b>횡단보도 알림</b></button>
+      <button type="button" data-media="photos" class="launcher-icon"><span class="launcher-glyph icon-photos" aria-hidden="true"><i></i></span><b>사진</b></button>
     </div>
-    <p>앱 아이콘을 눌러 내용을 살펴보세요.<br>이동은 거리 장면의 〈 〉 화살표로 해요.</p>
   </div>`;
 }
 function reading() {
+  if (media === "camera" || media === "photos") {
+    const label = media === "camera" ? "카메라 미리보기" : "사진";
+    return `<div class="phone-media phone-media--gallery">
+      <h3>${label}</h3>
+      <figure><img src="assets/gangneung-crosswalk-open-scene.jpg" alt="강릉역 앞 가상 거리"><figcaption>강릉역 앞 · 가상 체험 장면</figcaption></figure>
+    </div>`;
+  }
+  if (media === "browser") {
+    return `<div class="phone-media phone-media--browser">
+      <div class="browser-address">강릉 산책 노트</div>
+      <h3>강릉역 광장 둘러보기</h3>
+      <figure><img src="assets/gangneung-crosswalk-open-scene.jpg" alt="강릉역 앞 가상 거리"></figure>
+      <p class="media-caption">강릉역에서 시작하는 가상 산책</p>
+    </div>`;
+  }
   return `<div class="phone-media phone-media--${media}">
     <div class="media-switch" role="group" aria-label="가상 휴대폰에서 사용할 앱">
       <button type="button" data-media="video" aria-pressed="${media === "video"}">영상</button>
@@ -348,8 +366,9 @@ document.addEventListener("click", (event) => {
   }
   if (button.dataset.media) {
     media = button.dataset.media;
+    surface = "reading";
     render({ refreshMedia: true });
-    content.querySelector(`[data-media="${media}"]`)?.focus({ preventScroll: true });
+    (content.querySelector(`[data-media="${media}"]`) || content).focus({ preventScroll: true });
   }
   if (button.hasAttribute("data-play")) {
     playing = !playing;
@@ -364,7 +383,6 @@ document.addEventListener("click", (event) => {
     }
     openPage("home");
   }
-  if (button.hasAttribute("data-reading")) { surface = "reading"; render(); }
   if (button.hasAttribute("data-device-home") && !overlay) { surface = "launcher"; render(); }
   if (button.hasAttribute("data-start")) {
     startTrial();
