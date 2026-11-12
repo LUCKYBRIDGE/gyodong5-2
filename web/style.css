@@ -388,6 +388,12 @@ h1 span::after { content: ''; position: absolute; left: -3px; bottom: 4px; width
   .launcher-clock { font-size: 29px; }
   .launcher-wallpaper { margin: 9px 0; max-height: 132px; }
   .device-launcher > p { margin: 12px 0 6px; }
+  .points-hero { grid-template-columns: minmax(0, 1fr) 72px; padding: 14px; gap: 12px 6px; }
+  .wallet p { font-size: 10px; }
+  .wallet strong { font-size: 28px; white-space: nowrap; }
+  .wallet strong small { font-size: 15px; }
+  .wallet-metrics { gap: 8px; }
+  .wallet-metrics b { font-size: 15px; }
   .warning-panel h3 { font-size: 20px; margin: 14px 0 20px; }
   .phone-overlay { padding: 14px; }
   .result-panel { padding: 16px 10px; }
