@@ -110,8 +110,7 @@ public final class MainActivity extends Activity {
     private View header() {
         LinearLayout header = ui.row();
         ui.padding(header, 20, 12);
-        ImageView logo = new ImageView(this);
-        logo.setImageResource(R.drawable.ic_signal_alert);
+        ImageView logo = ui.brandIcon(38);
         logo.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_NO);
         LinearLayout.LayoutParams size = new LinearLayout.LayoutParams(ui.dp(38), ui.dp(38));
         size.rightMargin = ui.dp(11);
@@ -157,6 +156,8 @@ public final class MainActivity extends Activity {
     }
 
     private void home(DailyPoints earned, int balance) {
+        content.addView(ui.text(getText(R.string.submission_notice), 13, MUTED, true));
+        ui.space(content, 10);
         LinearLayout hero = ui.column();
         hero.setBackground(ui.surface(INK, 26, 0));
         ui.padding(hero, 22, 21);
@@ -395,16 +396,15 @@ public final class MainActivity extends Activity {
     private void design() {
         section("디자인 소개", "5난초가 정한 이름과 로고");
         LinearLayout panel = card();
-        ImageView badge = new ImageView(this);
-        badge.setImageResource(R.drawable.ic_signal_alert);
-        badge.setContentDescription("주황색 사이렌 배지");
+        ImageView badge = ui.brandIcon(160);
+        badge.setContentDescription("둥근 사각형의 주황색 사이렌 아이콘");
         LinearLayout.LayoutParams badgeSize = new LinearLayout.LayoutParams(ui.dp(160), ui.dp(160));
         badgeSize.gravity = Gravity.CENTER_HORIZONTAL;
         panel.addView(badge, badgeSize);
         ui.space(panel, 10);
         panel.addView(ui.text(getText(R.string.app_name), 20, INK, true));
         ui.space(panel, 6);
-        panel.addView(ui.text("5난초 학생들이 만든 이름과 아이콘 중에서 학급 투표로 ‘신호등 알리미’와 이 사이렌 배지를 골랐어요.",
+        panel.addView(ui.text("5난초 학생들이 만든 이름과 아이콘 중에서 학급 투표로 ‘신호등 알리미’와 사이렌 디자인을 골랐어요.",
                 14, MUTED, false));
         content.addView(panel);
     }

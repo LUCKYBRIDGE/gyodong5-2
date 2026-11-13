@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">신호등 알리미</string>
+    <string name="submission_notice">강릉시 시민제안 제출용 시제품입니다. 정식 출시 앱이 아닙니다.</string>
 
     <color name="brand_ink">#44251F</color>
     <color name="brand_muted">#654A40</color>

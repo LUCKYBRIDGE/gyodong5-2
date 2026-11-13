@@ -54,6 +54,7 @@ h1 span::after { content: ''; position: absolute; left: -3px; bottom: 4px; width
 .button-lime { background: var(--lime); color: var(--ink); }
 .button-lime:hover { background: #ffd298; }
 .download-caption { font-size: 11px; color: var(--muted); line-height: 1.8; margin: 12px 0 0; }
+.download-caption strong { color: var(--ink); font-size: 13px; }
 .project-origin { display: flex; gap: 10px; padding-top: 28px; margin-top: 30px; border-top: 1px solid var(--line); max-width: 380px; }
 .origin-dot { width: 7px; height: 7px; flex: 0 0 7px; margin-top: 7px; background: var(--button); border-radius: 50%; }
 .project-origin p { font-size: 12px; line-height: 1.8; margin: 0; color: var(--muted); }
@@ -514,13 +515,14 @@ h1 span::after { content: ''; position: absolute; left: -3px; bottom: 4px; width
 #phone-demo .phone-screen[data-surface="launcher"],
 #phone-demo .phone-screen[data-surface="launcher"] .phone-home-button { background: #26364e; color: #f7fbff; }
 
-.brand-logo, .mini-crossing, .warning-brand-logo { display: block; object-fit: contain; flex-shrink: 0; background: transparent; }
+.brand-logo, .mini-crossing, .warning-brand-logo { display: block; object-fit: cover; flex-shrink: 0; background: transparent; }
+.brand-logo, .mini-crossing, .warning-brand-logo, .design-emblem > img, .design-card img { border-radius: 27%; }
 .site-links { display: flex; gap: clamp(10px, 4vw, 28px); align-items: center; }
 .site-links a { font-size: 13px; font-weight: 700; text-underline-offset: 4px; white-space: nowrap; }
 .site-links a[href="#design"] { color: var(--button); }
 .warning-brand-logo { margin: 0 auto; }
 .design-section { display: grid; grid-template-columns: minmax(140px, .7fr) minmax(0, 1fr); align-items: center; gap: clamp(18px, 7vw, 80px); margin-block: 56px 0; padding: clamp(20px, 5vw, 62px); background: linear-gradient(125deg,#ffedda,#fff6eb 65%); border: 1px solid var(--line); border-radius: 26px; scroll-margin-top: 16px; }
-.design-emblem { max-width: 275px; justify-self: center; }
+.design-emblem { max-width: 192px; justify-self: center; }
 .design-emblem img, .design-card img { display: block; width: 100%; height: auto; }
 .design-copy h2 { margin: 0 0 14px; font-size: clamp(27px, 4vw, 40px); }
 .design-copy .eyebrow { margin-bottom: 8px; color: var(--button); }

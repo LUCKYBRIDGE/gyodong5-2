@@ -95,8 +95,8 @@ function avatar(growth) {
   }).join("")}`;
 }
 function guide() {
-  return `${titleHeading("어떻게 작동하나요?", "횡단보도 앞에서 휴대폰이 신호를 받아요.")}
-  <section class="app-card"><h4>지금은 가상 비콘 체험이에요</h4><p>웹에서는 이 휴대폰 모양 안에서 경고와 적립을 재현해요. 실제 안드로이드 앱은 다른 앱 위에 경고를 띄울 수 있어요.</p></section>
+  return `${titleHeading("어떻게 작동하나요?", "강릉시 시민제안 제출용 시제품입니다. 정식 출시 앱이 아닙니다.")}
+  <section class="app-card"><h4>지금은 가상 비콘 체험이에요</h4><p>웹에서는 이 휴대폰 모양 안에서 경고와 적립을 재현해요. 안드로이드 시제품은 다른 앱 위에 경고를 띄울 수 있어요.</p></section>
   <ol class="guide-steps"><li><b>횡단보도 앞 인도에 비콘 설치</b><p>차도에 들어가기 전 대기 구역에 블루투스 비콘을 설치해요.</p></li><li><b>앱이 등록된 비콘 신호 감지</b><p>신호 세기를 바탕으로 가까워졌는지 판단해요. 실제 감지 범위는 현장에서 조정해요.</p></li><li><b>화면을 끄거나 경고창을 유지</b><p>가까이에서 화면을 끄고 있거나 경고를 닫지 않은 채 10초가 지나면 10점씩 하루 최대 3회 적립해요.</p></li><li><b>하슬랑과 함께 습관 만들기</b><p>누적 기록에 따라 칭호가 열리고 하슬랑이 자라요. 웹 체험 기록은 이 브라우저에 저장돼요.</p></li></ol>`;
 }
 
@@ -182,7 +182,7 @@ function updateJourney() {
 function design() {
   return `${titleHeading("디자인 소개", "5난초가 정한 이름과 로고")}
   <section class="app-card design-card">
-    <img src="assets/signal-alert-logo.png" alt="주황색 사이렌 배지" width="1254" height="1254">
+    <img src="assets/signal-alert-app-icon.png" alt="둥근 사각형 사이렌 아이콘" width="192" height="192">
     <h4>신호등 알리미</h4>
     <p>5난초 학생들이 만든 이름과 아이콘 중에서 학급 투표로 ‘신호등 알리미’와 이 사이렌 배지를 골랐어요.</p>
   </section>`;
@@ -335,7 +335,7 @@ function toggleScreen() {
   updateJourney();
 }
 function showWarning() {
-  const warning = showOverlay(`<div class="warning-panel" role="dialog" aria-label="횡단보도 경고"><img class="warning-brand-logo" src="assets/signal-alert-logo.png" alt="" width="56" height="56"><h3>횡단보도 앞입니다.<br>주변을 봐주세요.</h3><div class="warning-clock"><span data-countdown role="timer" aria-label="적립까지 남은 초">${Math.ceil(HOLD_TIME / 1000)}</span><small>초 뒤 적립</small></div><button data-dismiss-warning>경고 닫기</button></div>`, "warning-overlay");
+  const warning = showOverlay(`<div class="warning-panel" role="dialog" aria-label="횡단보도 경고"><img class="warning-brand-logo" src="assets/signal-alert-app-icon.png" alt="" width="56" height="56"><h3>횡단보도 앞입니다.<br>주변을 봐주세요.</h3><div class="warning-clock"><span data-countdown role="timer" aria-label="적립까지 남은 초">${Math.ceil(HOLD_TIME / 1000)}</span><small>초 뒤 적립</small></div><button data-dismiss-warning>경고 닫기</button></div>`, "warning-overlay");
   warning.querySelector("button").focus({ preventScroll: true });
 }
 function tick() {

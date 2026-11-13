@@ -76,8 +76,7 @@ final class CrossingOverlay {
                 FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.WRAP_CONTENT, Gravity.CENTER));
 
         if (warning) {
-            ImageView icon = new ImageView(context);
-            icon.setImageResource(R.drawable.ic_signal_alert);
+            ImageView icon = new DashboardStyle(context).brandIcon(64);
             icon.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_NO);
             contents.addView(icon, new LinearLayout.LayoutParams(dp(64), dp(64)));
         }

@@ -8,6 +8,7 @@ import android.graphics.drawable.RippleDrawable;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -45,6 +46,14 @@ final class DashboardStyle {
         view.setTextColor(color(colorResource));
         if (bold) view.setTypeface(Typeface.DEFAULT, Typeface.BOLD);
         return view;
+    }
+
+    ImageView brandIcon(int size) {
+        ImageView icon = new ImageView(context);
+        icon.setImageResource(R.drawable.ic_signal_alert);
+        icon.setBackground(surface(R.color.brand_mint, Math.round(size * 0.27f), 0));
+        icon.setClipToOutline(true);
+        return icon;
     }
 
     Button button(CharSequence value, boolean primary) {

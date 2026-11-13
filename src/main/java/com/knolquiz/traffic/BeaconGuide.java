@@ -13,6 +13,8 @@ final class BeaconGuide {
 
     static void render(LinearLayout content, DashboardStyle ui) {
         content.addView(ui.text("사용 방법과 기술 설명", 28, INK, true));
+        ui.space(content, 4);
+        content.addView(ui.text(content.getResources().getText(R.string.submission_notice), 13, MUTED, false));
         ui.space(content, 12);
         content.addView(demoCard(ui));
         ui.space(content, 18);

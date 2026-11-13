@@ -40,6 +40,7 @@ struct SignalAlertView: View {
     private let accent = Color(red: 0.65, green: 0.20, blue: 0.13)
     private let paper = Color(red: 1, green: 0.97, blue: 0.94)
     private let peach = Color(red: 1, green: 0.87, blue: 0.71)
+    private let submissionNotice = "강릉시 시민제안 제출용 시제품입니다. 정식 출시 앱이 아닙니다."
     private let bannerID = "signal-alert.virtual-beacon"
 
     private var ledger: RewardLedger {
@@ -87,9 +88,10 @@ struct SignalAlertView: View {
     private var home: some View {
         Group {
             HStack(spacing: 10) {
-                Image("Brand").resizable().scaledToFit().frame(width: 42, height: 42).accessibilityHidden(true)
+                brandIcon(size: 42).accessibilityHidden(true)
                 Text("신호등 알리미").font(.title2.bold())
             }
+            Text(submissionNotice).font(.footnote.weight(.semibold))
             VStack(alignment: .leading, spacing: 14) {
                 HStack {
                     VStack(alignment: .leading) {
@@ -202,6 +204,7 @@ struct SignalAlertView: View {
 
     private var guide: some View {
         Group {
+            Text(submissionNotice).font(.footnote.weight(.semibold)).foregroundStyle(ink)
             card {
                 Text("가상 비콘").font(.headline)
                 Text("시제품은 실제 비콘 설치 없이 횡단보도 접근 상황을 재현해요.")
@@ -223,16 +226,22 @@ struct SignalAlertView: View {
 
     private var design: some View {
         card {
-            Image("Brand").resizable().scaledToFit().frame(maxWidth: 170)
-                .frame(maxWidth: .infinity).accessibilityLabel("주황색 사이렌 배지")
+            brandIcon(size: 170)
+                .frame(maxWidth: .infinity).accessibilityLabel("둥근 사각형의 주황색 사이렌 아이콘")
             Text("신호등 알리미").font(.title2.bold())
-            Text("5난초 학생들이 만든 이름과 아이콘 중에서 학급 투표로 ‘신호등 알리미’와 이 사이렌 배지를 골랐어요.")
+            Text("5난초 학생들이 만든 이름과 아이콘 중에서 학급 투표로 ‘신호등 알리미’와 사이렌 디자인을 골랐어요.")
         }
+    }
+
+    private func brandIcon(size: CGFloat) -> some View {
+        Image("Brand").resizable().scaledToFit()
+            .frame(width: size, height: size)
+            .clipShape(.rect(cornerRadius: size * 0.27))
     }
 
     private var warning: some View {
         VStack(spacing: 18) {
-            Image("Brand").resizable().scaledToFit().frame(width: 76, height: 76).accessibilityHidden(true)
+            brandIcon(size: 76).accessibilityHidden(true)
             Text(demo == .warning ? "횡단보도 앞입니다.\n주변을 봐주세요." :
                  demo == .earned ? "+10 포인트 적립" : "오늘 적립 한도에 도달했어요")
                 .font(.title.bold()).foregroundStyle(peach).multilineTextAlignment(.center)
