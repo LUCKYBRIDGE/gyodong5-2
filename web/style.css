@@ -298,10 +298,10 @@ h1 span::after { content: ''; position: absolute; left: -3px; bottom: 4px; width
 .launcher-icon b { font-size: clamp(9px, 2.8vw, 11px); font-weight: 650; }
 .launcher-icon .launcher-glyph { position: relative; width: 47px; height: 47px; display: grid; place-items: center; border-radius: 13px; box-shadow: 0 4px 12px #14213838; }
 .launcher-featured .launcher-crossing {
-  display: flex; transform: none; isolation: isolate;
-  background: linear-gradient(145deg, #fff1d4, #ffc68a);
-  outline: 1px solid #ffe09b; box-shadow: 0 0 0 4px #ffe09b4d, 0 0 21px #ffe09ba0, 0 5px 12px #14213855;
+  background: #ff8953;
+  box-shadow: 0 0 16px #ffb459a6, 0 5px 12px #14213855;
 }
+.launcher-crossing img { display: block; width: 100%; height: 100%; border-radius: inherit; object-fit: cover; }
 .launcher-crossing::after {
   content: "✦"; position: absolute; top: -8px; right: -6px; color: #fff0b8; font-size: 17px;
   text-shadow: 0 0 8px #ffce65; animation: launcher-sparkle 2.8s ease-in-out infinite;
@@ -518,8 +518,6 @@ h1 span::after { content: ''; position: absolute; left: -3px; bottom: 4px; width
 .site-links { display: flex; gap: clamp(10px, 4vw, 28px); align-items: center; }
 .site-links a { font-size: 13px; font-weight: 700; text-underline-offset: 4px; white-space: nowrap; }
 .site-links a[href="#design"] { color: var(--button); }
-.launcher-featured .launcher-crossing { justify-content: center; }
-.launcher-crossing img { width: 100%; height: 100%; object-fit: contain; }
 .warning-brand-logo { margin: 0 auto; }
 .design-section { display: grid; grid-template-columns: minmax(140px, .7fr) minmax(0, 1fr); align-items: center; gap: clamp(18px, 7vw, 80px); margin-block: 56px 0; padding: clamp(20px, 5vw, 62px); background: linear-gradient(125deg,#ffedda,#fff6eb 65%); border: 1px solid var(--line); border-radius: 26px; scroll-margin-top: 16px; }
 .design-emblem { max-width: 275px; justify-self: center; }
@@ -527,6 +525,9 @@ h1 span::after { content: ''; position: absolute; left: -3px; bottom: 4px; width
 .design-copy h2 { margin: 0 0 14px; font-size: clamp(27px, 4vw, 40px); }
 .design-copy .eyebrow { margin-bottom: 8px; color: var(--button); }
 .design-copy > p:not(.eyebrow) { color: var(--muted); font-size: 14px; line-height: 1.75; }
+.design-launcher { width: min(118px, 52%); margin: 10px auto 0; text-align: center; }
+.design-launcher img { border-radius: 14px; }
+.design-launcher figcaption { margin-top: 5px; font-size: 12px; font-weight: 650; }
 .design-card img { max-width: 145px; margin: 0 auto 13px; }
 .design-card h4 { margin: 0 0 6px; }
 .phone-nav { padding-inline: 5px; }

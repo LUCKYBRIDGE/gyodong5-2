@@ -6,9 +6,10 @@
   <meta name="theme-color" content="#44251f">
   <meta name="description" content="5난초 학생들의 토의에서 시작한 신호등 알리미. 웹에서 경고와 포인트, 하슬랑의 성장을 체험하고 안드로이드 시제품을 내려받으세요.">
   <title>신호등 알리미 · 5난초의 보행 안전 아이디어</title>
-  <link rel="icon" href="assets/signal-alert-logo.png" type="image/png">
-  <link rel="stylesheet" href="style.css?v=signal-alert-1">
-  <script type="module" src="app.js?v=signal-alert-1"></script>
+  <link rel="icon" href="assets/signal-alert-app-icon.png" type="image/png" sizes="192x192">
+  <link rel="apple-touch-icon" href="assets/signal-alert-app-icon.png" sizes="192x192">
+  <link rel="stylesheet" href="style.css?v=signal-alert-2">
+  <script type="module" src="app.js?v=signal-alert-2"></script>
 </head>
 <body>
   <a class="skip-link" href="#experience">체험으로 건너뛰기</a>
@@ -32,12 +33,13 @@
         </div>
         <div class="download-area" id="download">
           <div class="download-actions">
-            <a class="button button-dark download-button" href="downloads/traffic-demo.apk?v=0.4.0" download>안드로이드 APK 다운로드 <span aria-hidden="true">↓</span></a>
+            <a class="button button-dark download-button" href="downloads/traffic-demo.apk?v=0.4.1" download>안드로이드 APK 다운로드 <span aria-hidden="true">↓</span></a>
             <button class="button button-outline" id="install-guide" type="button" aria-haspopup="dialog">설치방법</button>
           </div>
           <div class="github-downloads">
             <a href="https://github.com/LUCKYBRIDGE/gyodong5-2" target="_blank" rel="noopener">GitHub 소스 코드</a>
-            <a href="https://github.com/LUCKYBRIDGE/gyodong5-2/releases/tag/v0.4.0" target="_blank" rel="noopener">GitHub에서 APK 받기</a>
+            <a href="https://github.com/LUCKYBRIDGE/gyodong5-2/releases/tag/v0.4.1" target="_blank" rel="noopener">GitHub에서 APK 받기</a>
+            <a href="https://github.com/LUCKYBRIDGE/gyodong5-2/tree/main/ios" target="_blank" rel="noopener">아이폰 Xcode 프로젝트</a>
           </div>
           <p class="download-caption">정식 출시 전 시제품 · Android 8.0 이상<br>설치하면 다른 앱 위에 뜨는 경고를 직접 체험할 수 있어요.</p>
         </div>
@@ -122,12 +124,15 @@
       </div>
     </section>
     <section class="design-section shell" id="design" aria-labelledby="design-title">
-      <div class="design-emblem"><img src="assets/signal-alert-logo.png" alt="주황색 원 안에 빨간 사이렌과 노란 별이 있는 신호등 알리미 로고" width="1254" height="1254" loading="lazy"></div>
+      <div class="design-emblem">
+        <img src="assets/signal-alert-logo.png" alt="주황색 원 안에 빨간 사이렌과 노란 별이 있는 신호등 알리미 로고" width="1254" height="1254" loading="lazy">
+        <figure class="design-launcher"><img src="assets/android-launcher-crop.png" alt="갤럭시 앱 목록에 표시되는 둥근 사각형 신호등 알리미 아이콘" width="333" height="377" loading="lazy"><figcaption>갤럭시 앱 목록</figcaption></figure>
+      </div>
       <div class="design-copy">
         <p class="eyebrow">5난초가 정한 이름과 로고</p>
         <h2 id="design-title">디자인 소개</h2>
         <p>5난초 학생들이 앱 이름과 아이콘을 직접 만들고, 학급 투표를 통해 <strong>‘신호등 알리미’</strong>라는 이름과 주황색 사이렌 배지를 골랐어요.</p>
-        <p>주황색 원과 빨간 사이렌, 노란 별이 담긴 배지를 휴대폰의 앱 아이콘과 횡단보도 경고창에 사용했어요.</p>
+        <p>횡단보도 경고창에는 원형 배지를, 휴대폰 홈 화면에는 빨간 사이렌과 노란 별을 담은 둥근 사각형 아이콘을 사용했어요.</p>
       </div>
     </section>
     <section class="screenshots shell" aria-labelledby="screenshots-title">
@@ -153,7 +158,7 @@
       <li><strong>가상 비콘 접근 체험</strong><p>‘가상 접근 시작’을 누르고 7초 안에 다른 앱을 열거나 화면을 꺼요. 경고창을 닫지 않거나 화면을 끈 상태를 10초 유지하면 포인트가 쌓여요.</p></li>
     </ol>
     <p class="install-note">현재는 가상 비콘을 이용해요. 일부 보호 화면에서는 경고 표시가 제한될 수 있어요. 체험 뒤 설치 권한은 다시 꺼 둘 수 있어요.</p>
-    <a class="button button-dark dialog-download" href="downloads/traffic-demo.apk?v=0.4.0" download>APK 다운로드 <span aria-hidden="true">↓</span></a>
+    <a class="button button-dark dialog-download" href="downloads/traffic-demo.apk?v=0.4.1" download>APK 다운로드 <span aria-hidden="true">↓</span></a>
   </dialog>
 </body>
 </html>

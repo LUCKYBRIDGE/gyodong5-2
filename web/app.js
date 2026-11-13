@@ -109,7 +109,7 @@ function launcher() {
       <button type="button" data-media="camera" class="launcher-icon"><span class="launcher-glyph icon-camera" aria-hidden="true"><i></i></span><b>카메라</b></button>
       <button type="button" data-media="browser" class="launcher-icon"><span class="launcher-glyph icon-chrome" aria-hidden="true"><i></i></span><b>크롬</b></button>
       <button type="button" data-media="video" class="launcher-icon"><span class="launcher-glyph icon-video" aria-hidden="true"><i>▶</i></span><b>영상</b></button>
-      <button type="button" data-open-app class="launcher-icon launcher-featured" aria-describedby="launcher-hint"><span class="launcher-glyph launcher-crossing" aria-hidden="true"><img src="assets/signal-alert-logo.png" alt=""></span><b>신호등 알리미</b></button>
+      <button type="button" data-open-app class="launcher-icon launcher-featured" aria-describedby="launcher-hint"><span class="launcher-glyph launcher-crossing" aria-hidden="true"><img src="assets/signal-alert-app-icon.png" alt="" width="47" height="47"></span><b>신호등 알리미</b></button>
       <button type="button" data-media="photos" class="launcher-icon"><span class="launcher-glyph icon-photos" aria-hidden="true"><i></i></span><b>사진</b></button>
     </div>
   </div>`;
