@@ -15,7 +15,7 @@ const preview = document.querySelector("#app-preview");
 const previewContent = document.querySelector("#preview-content");
 const previewNavigation = document.querySelector("#preview-nav");
 const previewStatus = document.querySelector("#preview-status");
-const pages = [["home", "홈"], ["shop", "상점"], ["titles", "칭호"], ["avatar", "하슬랑"], ["guide", "안내"]];
+const pages = [["home", "홈"], ["shop", "상점"], ["titles", "칭호"], ["avatar", "하슬랑"], ["guide", "안내"], ["design", "디자인"]];
 let stored;
 try { stored = JSON.parse(localStorage.getItem(STORAGE_KEY)); } catch { stored = null; }
 let state = normalizeState(stored);
@@ -84,7 +84,7 @@ function avatar(growth) {
   const actual = currentTitle(state.total);
   const displayed = growth === null ? actual : TITLES[growth];
   const next = TITLES.find((entry) => entry.threshold > state.total);
-  return `${titleHeading("하슬랑 키우기", "횡단보도 알림을 잘 이용할 때마다 자라요.")}
+  return `${titleHeading("하슬랑 키우기", "신호등 알리미를 잘 이용할 때마다 자라요.")}
   <section class="app-card avatar-stage">${canvasMarkup("large")}<h4>${displayed.label}</h4><p>${growth === null ? next ? `다음 칭호까지 알림 ${Math.ceil((next.threshold - state.total) / REWARD)}회` : "가장 높은 칭호에 도달했어요." : "성장 모습 미리보기"}</p></section>
   <fieldset class="growth-preview"><legend>성장 모습 미리보기</legend><div>${TITLES.map((entry) => `<button data-preview="${entry.level}" aria-pressed="${displayed.level === entry.level}">${entry.level + 1}단계</button>`).join("")}</div><button class="text-button" data-preview="actual">내 하슬랑 보기</button></fieldset>
   <h4 class="app-section-title">하슬랑 꾸미기</h4>
@@ -103,13 +103,13 @@ function guide() {
 function launcher() {
   return `<div class="device-launcher">
     <div class="launcher-clock" data-phone-clock aria-hidden="true">9:41</div>
-    <p class="launcher-hint" id="launcher-hint">‘횡단보도 알림’ 아이콘을 눌러<br>모은 포인트를 확인해 보세요.</p>
+    <p class="launcher-hint" id="launcher-hint">‘신호등 알리미’ 아이콘을 눌러<br>모은 포인트를 확인해 보세요.</p>
     <div class="launcher-apps" role="group" aria-label="가상 휴대폰의 앱 아이콘">
       <button type="button" data-media="chat" class="launcher-icon"><span class="launcher-glyph icon-talk" aria-hidden="true"><i>TALK</i></span><b>카카오톡</b></button>
       <button type="button" data-media="camera" class="launcher-icon"><span class="launcher-glyph icon-camera" aria-hidden="true"><i></i></span><b>카메라</b></button>
       <button type="button" data-media="browser" class="launcher-icon"><span class="launcher-glyph icon-chrome" aria-hidden="true"><i></i></span><b>크롬</b></button>
       <button type="button" data-media="video" class="launcher-icon"><span class="launcher-glyph icon-video" aria-hidden="true"><i>▶</i></span><b>영상</b></button>
-      <button type="button" data-open-app class="launcher-icon launcher-featured" aria-describedby="launcher-hint"><span class="launcher-glyph launcher-crossing crossing-mark" aria-hidden="true"><i></i><i></i><i></i><i></i></span><b>횡단보도 알림</b></button>
+      <button type="button" data-open-app class="launcher-icon launcher-featured" aria-describedby="launcher-hint"><span class="launcher-glyph launcher-crossing" aria-hidden="true"><img src="assets/signal-alert-logo.png" alt=""></span><b>신호등 알리미</b></button>
       <button type="button" data-media="photos" class="launcher-icon"><span class="launcher-glyph icon-photos" aria-hidden="true"><i></i></span><b>사진</b></button>
     </div>
   </div>`;
@@ -179,6 +179,15 @@ function updateJourney() {
   phone.classList.toggle("is-off", deviceOff);
 }
 
+function design() {
+  return `${titleHeading("디자인 소개", "5난초가 정한 이름과 로고")}
+  <section class="app-card design-card">
+    <img src="assets/signal-alert-logo.png" alt="주황색 사이렌 배지" width="1254" height="1254">
+    <h4>신호등 알리미</h4>
+    <p>5난초 학생들이 만든 이름과 아이콘 중에서 학급 투표로 ‘신호등 알리미’와 이 사이렌 배지를 골랐어요.</p>
+  </section>`;
+}
+
 function paintAvatars(target, currentPage, growth) {
   const level = currentPage === "avatar" && growth !== null ? growth : currentTitle(state.total).level;
   target.querySelectorAll("canvas").forEach((canvas) => {
@@ -188,7 +197,7 @@ function paintAvatars(target, currentPage, growth) {
 }
 function renderApp(target, menu, currentPage, growth, standalone = false) {
   const renderPage = {
-    home: () => home(standalone), shop, titles, avatar: () => avatar(growth), guide,
+    home: () => home(standalone), shop, titles, avatar: () => avatar(growth), guide, design,
   };
   target.innerHTML = renderPage[currentPage]();
   if (!menu.childElementCount) {
@@ -285,7 +294,7 @@ function depart() {
   content.scrollTop = 0;
   if (cancelled && deviceOff) announce("비콘 범위를 벗어나 적립이 중단됐어요.");
   else if (cancelled) showNotice("비콘 범위를 벗어나 적립이 중단됐어요.");
-  else announce("횡단보도에서 벗어났어요. 횡단보도 알림 앱을 열어 포인트와 하슬랑을 확인해 보세요.");
+  else announce("횡단보도에서 벗어났어요. 신호등 알리미 앱을 열어 포인트와 하슬랑을 확인해 보세요.");
 }
 function finishTrial() {
   clearTrial();
@@ -326,7 +335,7 @@ function toggleScreen() {
   updateJourney();
 }
 function showWarning() {
-  const warning = showOverlay(`<div class="warning-panel" role="dialog" aria-label="횡단보도 경고"><span class="warning-crosswalk" aria-hidden="true">▰ ▰ ▰</span><h3>횡단보도 앞입니다.<br>주변을 봐주세요.</h3><div class="warning-clock"><span data-countdown role="timer" aria-label="적립까지 남은 초">${Math.ceil(HOLD_TIME / 1000)}</span><small>초 뒤 적립</small></div><button data-dismiss-warning>경고 닫기</button></div>`, "warning-overlay");
+  const warning = showOverlay(`<div class="warning-panel" role="dialog" aria-label="횡단보도 경고"><img class="warning-brand-logo" src="assets/signal-alert-logo.png" alt="" width="56" height="56"><h3>횡단보도 앞입니다.<br>주변을 봐주세요.</h3><div class="warning-clock"><span data-countdown role="timer" aria-label="적립까지 남은 초">${Math.ceil(HOLD_TIME / 1000)}</span><small>초 뒤 적립</small></div><button data-dismiss-warning>경고 닫기</button></div>`, "warning-overlay");
   warning.querySelector("button").focus({ preventScroll: true });
 }
 function tick() {

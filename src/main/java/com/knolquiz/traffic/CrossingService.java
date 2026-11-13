@@ -54,7 +54,7 @@ public final class CrossingService extends Service {
                 .newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, getPackageName() + ":BeaconDemo");
         demoWakeLock.setReferenceCounted(false);
         getSystemService(NotificationManager.class).createNotificationChannel(
-                new NotificationChannel(CHANNEL, "횡단보도 알림 체험", NotificationManager.IMPORTANCE_LOW));
+                new NotificationChannel(CHANNEL, "신호등 알리미 체험", NotificationManager.IMPORTANCE_LOW));
         IntentFilter filter = new IntentFilter(Intent.ACTION_SCREEN_OFF);
         if (Build.VERSION.SDK_INT >= 33) {
             registerReceiver(screenOff, filter, Context.RECEIVER_NOT_EXPORTED);
@@ -164,7 +164,7 @@ public final class CrossingService extends Service {
         return new Notification.Builder(this, CHANNEL)
                 .setSmallIcon(android.R.drawable.ic_dialog_info)
                 .setContentTitle("가상 비콘 체험 중")
-                .setContentText("다른 앱 위에 횡단보도 알림을 표시합니다.")
+                .setContentText("다른 앱 위에 횡단보도 경고를 표시합니다.")
                 .setContentIntent(open)
                 .addAction(new Notification.Action.Builder(null, "체험 종료", stop).build())
                 .setOngoing(true)

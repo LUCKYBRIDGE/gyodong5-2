@@ -77,7 +77,7 @@ final class CrossingOverlay {
 
         if (warning) {
             ImageView icon = new ImageView(context);
-            icon.setImageResource(R.drawable.ic_crossing);
+            icon.setImageResource(R.drawable.ic_signal_alert);
             icon.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_NO);
             contents.addView(icon, new LinearLayout.LayoutParams(dp(64), dp(64)));
         }

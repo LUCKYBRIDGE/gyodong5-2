@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">횡단보도 알림</string>
+    <string name="app_name">신호등 알리미</string>
 
-    <color name="brand_ink">#19372D</color>
-    <color name="brand_muted">#44594E</color>
-    <color name="brand_paper">#F5F7F2</color>
+    <color name="brand_ink">#44251F</color>
+    <color name="brand_muted">#654A40</color>
+    <color name="brand_paper">#FFF8F0</color>
     <color name="brand_white">#FFFFFF</color>
-    <color name="brand_line">#D9E4DC</color>
-    <color name="brand_mint">#DDF2BD</color>
-    <color name="brand_button">#215C4B</color>
+    <color name="brand_line">#EEDBCB</color>
+    <color name="brand_mint">#FFDFB6</color>
+    <color name="brand_button">#A53421</color>
     <color name="brand_ripple">#33FFFFFF</color>
 
-    <color name="brand_overlay">#102C30</color>
+    <color name="brand_overlay">#361C19</color>
     <color name="brand_warning">#FFDF91</color>
-    <color name="brand_reward_text">#C8F6CD</color>
-    <color name="brand_overlay_result">#E6102C30</color>
-    <color name="brand_overlay_border">#8CA9AA</color>
+    <color name="brand_reward_text">#FFE0AC</color>
+    <color name="brand_overlay_result">#E6361C19</color>
+    <color name="brand_overlay_border">#CA9D87</color>
 </resources>

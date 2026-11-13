@@ -3,17 +3,21 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#19372d">
-  <meta name="description" content="5난초 학생들의 토의에서 시작한 횡단보도 알림. 웹에서 경고와 포인트, 하슬랑의 성장을 체험하고 안드로이드 시제품을 내려받으세요.">
-  <title>횡단보도 알림 · 5난초의 보행 안전 아이디어</title>
-  <link rel="stylesheet" href="style.css?v=phone-controls-1">
-  <script type="module" src="app.js?v=phone-controls-1"></script>
+  <meta name="theme-color" content="#44251f">
+  <meta name="description" content="5난초 학생들의 토의에서 시작한 신호등 알리미. 웹에서 경고와 포인트, 하슬랑의 성장을 체험하고 안드로이드 시제품을 내려받으세요.">
+  <title>신호등 알리미 · 5난초의 보행 안전 아이디어</title>
+  <link rel="icon" href="assets/signal-alert-logo.png" type="image/png">
+  <link rel="stylesheet" href="style.css?v=signal-alert-1">
+  <script type="module" src="app.js?v=signal-alert-1"></script>
 </head>
 <body>
   <a class="skip-link" href="#experience">체험으로 건너뛰기</a>
   <header class="site-header shell">
-    <a class="wordmark" href="./" aria-label="횡단보도 알림 처음으로"><span class="crossing-mark" aria-hidden="true"><i></i><i></i><i></i><i></i></span>횡단보도 알림</a>
-    <a class="header-link" href="#download">안드로이드에서 체험하기 <span aria-hidden="true">↗</span></a>
+    <a class="wordmark" href="./" aria-label="신호등 알리미 처음으로"><img class="brand-logo" src="assets/signal-alert-logo.png" alt="" width="40" height="40">신호등 알리미</a>
+    <nav class="site-links" aria-label="웹페이지 메뉴">
+      <a href="#design">디자인 소개</a>
+      <a href="#download">앱 설치</a>
+    </nav>
   </header>
   <main>
     <section class="hero shell" aria-labelledby="hero-title">
@@ -28,8 +32,12 @@
         </div>
         <div class="download-area" id="download">
           <div class="download-actions">
-            <a class="button button-dark download-button" href="downloads/traffic-demo.apk" download>안드로이드 APK 다운로드 <span aria-hidden="true">↓</span></a>
+            <a class="button button-dark download-button" href="downloads/traffic-demo.apk?v=0.4.0" download>안드로이드 APK 다운로드 <span aria-hidden="true">↓</span></a>
             <button class="button button-outline" id="install-guide" type="button" aria-haspopup="dialog">설치방법</button>
+          </div>
+          <div class="github-downloads">
+            <a href="https://github.com/LUCKYBRIDGE/gyodong5-2" target="_blank" rel="noopener">GitHub 소스 코드</a>
+            <a href="https://github.com/LUCKYBRIDGE/gyodong5-2/releases/tag/v0.4.0" target="_blank" rel="noopener">GitHub에서 APK 받기</a>
           </div>
           <p class="download-caption">정식 출시 전 시제품 · Android 8.0 이상<br>설치하면 다른 앱 위에 뜨는 경고를 직접 체험할 수 있어요.</p>
         </div>
@@ -50,13 +58,13 @@
             <div class="route-progress" aria-hidden="true"><span></span><i></i><i></i><i></i><i></i></div>
           </div>
           <div class="scene-credits" id="scene-credits">강릉역 가상 장면 · AI 재구성</div>
-        <div class="phone-frame" id="phone-demo" aria-label="횡단보도 알림 웹 체험 화면">
+        <div class="phone-frame" id="phone-demo" aria-label="신호등 알리미 웹 체험 화면">
           <div class="phone-screen">
             <div class="phone-status" aria-hidden="true">
               <time data-phone-clock>9:41</time><span class="phone-camera"></span>
               <span class="phone-indicators"><i class="phone-signal"></i><i class="phone-wifi"></i><i class="phone-battery"></i></span>
             </div>
-            <div class="phone-brand"><span class="mini-crossing" aria-hidden="true">▰</span><span>횡단보도 알림</span></div>
+            <div class="phone-brand"><img class="mini-crossing" src="assets/signal-alert-logo.png" alt="" width="29" height="29"><span>신호등 알리미</span></div>
             <div id="phone-content" class="phone-content" tabindex="0"></div>
             <nav id="phone-nav" class="phone-nav" aria-label="체험 앱 메뉴"></nav>
             <div id="phone-notice" class="phone-notice" role="status" hidden></div>
@@ -86,15 +94,16 @@
           <div><dt>칭호</dt><dd>완료한 알림 횟수에 따라 얻는 교통안전 칭호를 확인해요.</dd></div>
           <div><dt>하슬랑</dt><dd>성장 모습을 보고 상점에서 모은 아이템을 착용해요.</dd></div>
           <div><dt>안내</dt><dd>비콘 감지와 경고 표시, 포인트 적립 기준을 살펴봐요.</dd></div>
+          <div><dt>디자인</dt><dd>5난초 투표로 정한 앱 이름과 로고를 살펴봐요.</dd></div>
         </dl>
       </div>
-      <div class="phone-frame preview-phone" aria-label="평소 횡단보도 알림 앱">
+      <div class="phone-frame preview-phone" aria-label="평소 신호등 알리미 앱">
         <div class="phone-screen">
           <div class="phone-status" aria-hidden="true">
               <time data-phone-clock>9:41</time><span class="phone-camera"></span>
               <span class="phone-indicators"><i class="phone-signal"></i><i class="phone-wifi"></i><i class="phone-battery"></i></span>
             </div>
-          <div class="phone-brand"><span class="mini-crossing" aria-hidden="true">▰</span><span>횡단보도 알림</span></div>
+          <div class="phone-brand"><img class="mini-crossing" src="assets/signal-alert-logo.png" alt="" width="29" height="29"><span>신호등 알리미</span></div>
           <div id="preview-content" class="phone-content" tabindex="0"></div>
           <nav id="preview-nav" class="phone-nav" aria-label="평소 앱 메뉴"></nav>
           <div class="phone-home-bar" aria-hidden="true"></div>
@@ -112,8 +121,17 @@
         </div>
       </div>
     </section>
+    <section class="design-section shell" id="design" aria-labelledby="design-title">
+      <div class="design-emblem"><img src="assets/signal-alert-logo.png" alt="주황색 원 안에 빨간 사이렌과 노란 별이 있는 신호등 알리미 로고" width="1254" height="1254" loading="lazy"></div>
+      <div class="design-copy">
+        <p class="eyebrow">5난초가 정한 이름과 로고</p>
+        <h2 id="design-title">디자인 소개</h2>
+        <p>5난초 학생들이 앱 이름과 아이콘을 직접 만들고, 학급 투표를 통해 <strong>‘신호등 알리미’</strong>라는 이름과 주황색 사이렌 배지를 골랐어요.</p>
+        <p>주황색 원과 빨간 사이렌, 노란 별이 담긴 배지를 휴대폰의 앱 아이콘과 횡단보도 경고창에 사용했어요.</p>
+      </div>
+    </section>
     <section class="screenshots shell" aria-labelledby="screenshots-title">
-      <div class="section-heading"><div><p class="eyebrow">실제 안드로이드 시제품</p><h2 id="screenshots-title">휴대폰에서는 이런 모습이에요.</h2></div><p>10초 유지 시 10점, 하루 최대 3회.<br>하슬랑은 누적 기록에 따라 성장해요.</p></div>
+      <div class="section-heading"><div><p class="eyebrow">디자인 투표 전 실기기 기록</p><h2 id="screenshots-title">휴대폰에서는 이렇게 작동해요.</h2></div><p>10초 유지 시 10점, 하루 최대 3회.<br>하슬랑은 누적 기록에 따라 성장해요.</p></div>
       <div class="screenshot-grid">
         <figure><a class="screenshot-wrap" href="assets/home.png" target="_blank" rel="noopener"><img src="assets/home.png" alt="포인트와 하슬랑이 함께 보이는 앱 홈 화면" loading="lazy" width="1440" height="3120"></a><figcaption>포인트와 오늘의 기록</figcaption></figure>
         <figure><a class="screenshot-wrap" href="assets/warning.png" target="_blank" rel="noopener"><img src="assets/warning.png" alt="횡단보도 앞입니다. 주변을 봐주세요라는 경고 화면" loading="lazy" width="1440" height="3120"></a><figcaption>다른 앱 위에 뜨는 경고</figcaption></figure>
@@ -131,11 +149,11 @@
     <ol class="install-steps">
       <li><strong>APK 파일 내려받기</strong><p>안드로이드 휴대폰에서 이 웹을 열고 ‘APK 다운로드’를 눌러요. 내려받은 파일은 알림이나 ‘내 파일 → 다운로드’에서 열 수 있어요.</p></li>
       <li><strong>설치를 허용하고 앱 열기</strong><p>‘이 출처의 앱 설치 허용’ 화면이 나오면 파일을 연 브라우저나 ‘내 파일’의 설치 권한을 허용하고 설치해요. 기기 보안 설정에서 설치를 차단하면 학교나 보호자와 설정을 확인해 주세요.</p></li>
-      <li><strong>다른 앱 위에 표시 허용</strong><p>앱에서 ‘다른 앱 위에 표시 허용’을 눌러요. 설정 목록에서 ‘횡단보도 알림’을 선택하고 권한을 켠 뒤 앱으로 돌아와요.</p></li>
+      <li><strong>다른 앱 위에 표시 허용</strong><p>앱에서 ‘다른 앱 위에 표시 허용’을 눌러요. 설정 목록에서 ‘신호등 알리미’을 선택하고 권한을 켠 뒤 앱으로 돌아와요.</p></li>
       <li><strong>가상 비콘 접근 체험</strong><p>‘가상 접근 시작’을 누르고 7초 안에 다른 앱을 열거나 화면을 꺼요. 경고창을 닫지 않거나 화면을 끈 상태를 10초 유지하면 포인트가 쌓여요.</p></li>
     </ol>
     <p class="install-note">현재는 가상 비콘을 이용해요. 일부 보호 화면에서는 경고 표시가 제한될 수 있어요. 체험 뒤 설치 권한은 다시 꺼 둘 수 있어요.</p>
-    <a class="button button-dark dialog-download" href="downloads/traffic-demo.apk" download>APK 다운로드 <span aria-hidden="true">↓</span></a>
+    <a class="button button-dark dialog-download" href="downloads/traffic-demo.apk?v=0.4.0" download>APK 다운로드 <span aria-hidden="true">↓</span></a>
   </dialog>
 </body>
 </html>
