@@ -60,7 +60,7 @@ function home(standalone) {
   </section>
   <button class="app-card shortcut" data-page="titles"><span><b>교통안전 칭호</b><small>${title.label}</small></span><span class="text-action">칭호 보기 ↗</span></button>
   <button class="app-card shortcut" data-page="shop"><span><b>포인트 상점</b><small>교환권 예시와 하슬랑 꾸미기</small></span><span class="text-action">상점 보기 ↗</span></button>
-  ${standalone ? '<a class="app-button preview-walk" href="#experience">횡단보도 체험으로 이동</a>' : `<section class="app-card trial-card"><h4>가상 비콘 체험</h4><p>다른 화면을 보며 걷는 상황을 체험해 보세요. 가까이에서 화면을 끄거나 경고를 10초 유지하면 10점이 쌓여요.</p>
+  ${standalone ? '<a class="app-button preview-walk" href="#experience">횡단보도 체험으로 이동</a>' : `<section class="app-card trial-card"><h4>가상 비콘 체험</h4><p>다른 화면을 보며 걷는 상황을 체험해 보세요. 비콘 접근 후 화면을 끄거나 경고를 10초 유지하면 10점이 쌓여요.</p>
     <button class="app-button" data-start>가상 접근 시작</button>
   </section>`}`;
 }
@@ -97,7 +97,7 @@ function avatar(growth) {
 function guide() {
   return `${titleHeading("어떻게 작동하나요?", "강릉시 시민제안 제출용 시제품입니다. 정식 출시 앱이 아닙니다.")}
   <section class="app-card"><h4>지금은 가상 비콘 체험이에요</h4><p>웹에서는 이 휴대폰 모양 안에서 경고와 적립을 재현해요. 안드로이드 시제품은 다른 앱 위에 경고를 띄울 수 있어요.</p></section>
-  <ol class="guide-steps"><li><b>횡단보도 앞 인도에 비콘 설치</b><p>차도에 들어가기 전 대기 구역에 블루투스 비콘을 설치해요.</p></li><li><b>앱이 등록된 비콘 신호 감지</b><p>신호 세기를 바탕으로 가까워졌는지 판단해요. 실제 감지 범위는 현장에서 조정해요.</p></li><li><b>화면을 끄거나 경고창을 유지</b><p>가까이에서 화면을 끄고 있거나 경고를 닫지 않은 채 10초가 지나면 10점씩 하루 최대 3회 적립해요.</p></li><li><b>하슬랑과 함께 습관 만들기</b><p>누적 기록에 따라 칭호가 열리고 하슬랑이 자라요. 웹 체험 기록은 이 브라우저에 저장돼요.</p></li></ol>`;
+  <ol class="guide-steps"><li><b>횡단보도 앞 인도에 비콘 설치</b><p>차도에 들어가기 전 대기 구역에 블루투스 비콘을 설치해요.</p></li><li><b>앱이 등록된 비콘 신호 감지</b><p>신호 세기를 바탕으로 가까워졌는지 판단해요. 실제 감지 범위는 현장에서 조정해요.</p></li><li><b>화면을 끄거나 경고창을 유지</b><p>비콘 접근 후 화면을 끄고 있거나 경고를 닫지 않은 채 10초가 지나면 10점씩 하루 최대 3회 적립해요.</p></li><li><b>하슬랑과 함께 습관 만들기</b><p>누적 기록에 따라 칭호가 열리고 하슬랑이 자라요. 웹 체험 기록은 이 브라우저에 저장돼요.</p></li></ol>`;
 }
 
 function launcher() {
@@ -285,16 +285,11 @@ function dismissWarning() {
   showNotice("앗! 아쉬워요. 주변을 조심하세요.");
 }
 function depart() {
-  const cancelled = !!trial || arrivalTimer !== null;
-  clearTrial();
   locationStage = "passed";
-  surface = "launcher";
-  render();
-  if (deviceOff) showScreenOff();
-  content.scrollTop = 0;
-  if (cancelled && deviceOff) announce("비콘 범위를 벗어나 적립이 중단됐어요.");
-  else if (cancelled) showNotice("비콘 범위를 벗어나 적립이 중단됐어요.");
-  else announce("횡단보도에서 벗어났어요. 신호등 알리미 앱을 열어 포인트와 하슬랑을 확인해 보세요.");
+  updateJourney();
+  if (!trial && arrivalTimer === null) {
+    announce("횡단보도에서 벗어났어요. 신호등 알리미 앱에서 포인트와 하슬랑을 확인해 보세요.");
+  }
 }
 function finishTrial() {
   clearTrial();
@@ -305,7 +300,7 @@ function finishTrial() {
   announce(`${heading}. 오늘 ${state.count} / ${DAILY_LIMIT}회 적립`);
   if (deviceOff) {
     showScreenOff();
-    announce(heading + " · 화면을 켜지 않고 기록했어요. 오른쪽 화살표로 이동한 뒤 앱에서 확인해 보세요.");
+    announce(heading + " · 화면을 켜지 않고 기록했어요. 안전한 곳에서 앱을 열어 확인해 보세요.");
     return;
   }
   showOverlay(`<div class="result-panel" role="status"><h3>${heading}</h3><p>오늘 ${state.count} / ${DAILY_LIMIT}회 적립</p><button type="button" class="result-dismiss" data-close-result>닫기</button></div>`, "result-overlay");
@@ -348,22 +343,19 @@ function tick() {
   const left = Math.ceil((HOLD_TIME - elapsed) / 1000);
   const countdown = overlay?.querySelector("[data-countdown]");
   if (countdown && countdown.textContent !== String(left)) countdown.textContent = left;
-  const message = `가상 비콘 범위 안 · ${left}초 뒤 적립 · ${deviceOff ? "화면 꺼짐" : "경고 유지 중"}`;
+  const message = `${left}초 뒤 적립 · ${deviceOff ? "화면 꺼짐" : "경고 유지 중"}`;
   if (status.textContent !== message) announce(message);
 }
 function startTrial() {
   if (locationStage === "near") return;
-  surface = "reading";
   locationStage = "approaching";
-  render();
-  content.scrollTop = 0;
+  updateJourney();
   announce("같은 횡단보도가 조금 더 가까워졌어요. 오른쪽 화살표를 한 번 더 눌러 보세요.");
 }
 function arrive() {
-  surface = "reading";
   locationStage = "near";
-  render();
-  if (deviceOff) showScreenOff();
+  updateJourney();
+  if (trial || arrivalTimer !== null) return;
   announce("횡단보도 바로 앞에 도착했어요.");
   // Wait for the last movement to settle before showing the phone warning.
   const delay = matchMedia("(prefers-reduced-motion: reduce)").matches ? 0 : 780;
@@ -432,6 +424,11 @@ document.addEventListener("click", (event) => {
   }
   if (button.hasAttribute("data-device-home")) showDeviceHome();
   if (button.hasAttribute("data-start")) {
+    if (!trial && arrivalTimer === null && locationStage !== "near") {
+      surface = "reading";
+      render();
+      content.scrollTop = 0;
+    }
     startTrial();
     document.querySelector("#experience").scrollIntoView({ block: "start" });
   }
@@ -464,20 +461,14 @@ document.querySelector("#start-demo").addEventListener("click", () => {
   else if (locationStage === "near") depart();
   else if (locationStage === "passed") {
     locationStage = "away";
-    surface = "reading";
-    render();
-    if (deviceOff) showScreenOff();
+    updateJourney();
     announce("다시 산책을 시작할 수 있어요.");
   }
 });
 document.querySelector("#walk-back").addEventListener("click", () => {
-  const cancelled = !!trial || arrivalTimer !== null;
-  clearTrial();
   locationStage = "away";
-  surface = "reading";
-  render();
-  if (deviceOff) showScreenOff();
-  announce(cancelled ? "횡단보도에서 멀어져 이번 적립을 멈췄어요." : "강릉역 앞 산책 시작 지점으로 돌아왔어요.");
+  updateJourney();
+  if (!trial && arrivalTimer === null) announce("강릉역 앞 산책 시작 지점으로 돌아왔어요.");
 });
 document.querySelector("#screen-off-toggle").addEventListener("click", toggleScreen);
 

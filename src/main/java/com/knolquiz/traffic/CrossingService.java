@@ -27,15 +27,16 @@ public final class CrossingService extends Service {
     private static final long CHECK_INTERVAL = 200;
     private static final long RESULT_DURATION = 3_000;
     private static final long DISMISS_DURATION = 2_000;
-    private static final long DEMO_WAKE_LIMIT = 35_000;
+    private static final long DEMO_DURATION = 35_000;
 
     private final Handler handler = new Handler(Looper.getMainLooper());
+    private final Handler demoHandler = new Handler(Looper.getMainLooper());
+    private final Runnable sessionCheck = this::checkSession;
     private final BeaconSource beacon = new BeaconSource.Demo();
     private CrossingOverlay overlay;
     private RewardSession session;
     private SharedPreferences points;
     private PowerManager.WakeLock demoWakeLock;
-    private boolean near;
     private boolean warningShown;
 
     private final BroadcastReceiver screenOff = new BroadcastReceiver() {
@@ -72,25 +73,19 @@ public final class CrossingService extends Service {
 
         startForeground(1, notification());
         clearOverlay();
-        near = false;
-        demoWakeLock.acquire(DEMO_WAKE_LIMIT);
+        demoHandler.removeCallbacksAndMessages(null);
+        demoWakeLock.acquire(DEMO_DURATION);
+        demoHandler.postDelayed(this::stopSelf, DEMO_DURATION);
         beacon.start(this::onProximityChanged);
         return START_NOT_STICKY;
     }
 
     private void onProximityChanged(boolean inRange) {
-        near = inRange;
-        if (!near) {
-            clearOverlay();
-            stopSelf();
-            return;
-        }
-
-        checkSession();
+        if (inRange && session == null && !overlay.isVisible()) checkSession();
     }
 
     private void checkSession() {
-        if (!near || !Settings.canDrawOverlays(this)) {
+        if (!Settings.canDrawOverlays(this)) {
             clearOverlay();
             return;
         }
@@ -110,7 +105,7 @@ public final class CrossingService extends Service {
         long now = SystemClock.elapsedRealtime();
         if (session == null) session = RewardSession.start(now);
         RewardSession.Status status = session.status(
-                now, near, warningShown && overlay.isVisible(), displayOff);
+                now, warningShown && overlay.isVisible(), displayOff);
         switch (status) {
             case WAITING -> scheduleCheck();
             case CANCELLED -> clearOverlay();
@@ -119,7 +114,8 @@ public final class CrossingService extends Service {
     }
 
     private void scheduleCheck() {
-        handler.postDelayed(this::checkSession, CHECK_INTERVAL);
+        handler.removeCallbacks(sessionCheck);
+        handler.postDelayed(sessionCheck, CHECK_INTERVAL);
     }
 
     private void finishReward(boolean showConfirmation) {
@@ -174,6 +170,7 @@ public final class CrossingService extends Service {
     @Override
     public void onDestroy() {
         beacon.stop();
+        demoHandler.removeCallbacksAndMessages(null);
         clearOverlay();
         unregisterReceiver(screenOff);
         if (demoWakeLock.isHeld()) demoWakeLock.release();

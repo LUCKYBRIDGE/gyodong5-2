@@ -9,7 +9,7 @@
   <link rel="icon" href="assets/signal-alert-app-icon.png" type="image/png" sizes="192x192">
   <link rel="apple-touch-icon" href="assets/signal-alert-app-icon.png" sizes="192x192">
   <link rel="stylesheet" href="style.css?v=signal-alert-3">
-  <script type="module" src="app.js?v=signal-alert-3"></script>
+  <script type="module" src="app.js?v=signal-alert-4"></script>
 </head>
 <body>
   <a class="skip-link" href="#experience">체험으로 건너뛰기</a>
@@ -33,12 +33,12 @@
         </div>
         <div class="download-area" id="download">
           <div class="download-actions">
-            <a class="button button-dark download-button" href="downloads/traffic-demo.apk?v=0.4.2" download>안드로이드 APK 다운로드 <span aria-hidden="true">↓</span></a>
+            <a class="button button-dark download-button" href="downloads/traffic-demo.apk?v=0.4.3" download>안드로이드 APK 다운로드 <span aria-hidden="true">↓</span></a>
             <button class="button button-outline" id="install-guide" type="button" aria-haspopup="dialog">설치방법</button>
           </div>
           <div class="github-downloads">
             <a href="https://github.com/LUCKYBRIDGE/gyodong5-2" target="_blank" rel="noopener">GitHub 소스 코드</a>
-            <a href="https://github.com/LUCKYBRIDGE/gyodong5-2/releases/tag/v0.4.2" target="_blank" rel="noopener">GitHub에서 APK 받기</a>
+            <a href="https://github.com/LUCKYBRIDGE/gyodong5-2/raw/refs/heads/main/web/downloads/traffic-demo.apk" target="_blank" rel="noopener">GitHub에서 APK 받기</a>
             <a href="https://github.com/LUCKYBRIDGE/gyodong5-2/tree/main/ios" target="_blank" rel="noopener">아이폰 Xcode 프로젝트</a>
           </div>
           <p class="download-caption"><strong>강릉시 시민제안 제출용 시제품입니다. 정식 출시 앱이 아닙니다.</strong><br>Android 8.0 이상에서 다른 앱 위에 뜨는 경고를 체험할 수 있어요.</p>
@@ -119,7 +119,7 @@
         <div class="rule-cards">
           <article class="rule-card"><h3>횡단보도 앞에서 경고</h3><p>가상 비콘 범위에 들어오면 영상이나 메신저 위에 “횡단보도 앞입니다. 주변을 봐주세요.”가 떠요.</p></article>
           <article class="rule-card"><h3>10초가 지나면 10점</h3><p>경고를 닫지 않고 숫자가 끝날 때까지 기다리면 자동으로 적립돼요. 화면을 끈 채 기다려도 적립되며 하루 최대 3회예요.</p></article>
-          <article class="rule-card"><h3>경고를 먼저 닫으면</h3><p>“앗! 아쉬워요. 주변을 조심하세요.”가 떠요. 10초 전에 경고를 닫거나 범위를 벗어나면 이번 포인트는 지급되지 않아요.</p></article>
+          <article class="rule-card"><h3>횡단보도에서 멀어져도</h3><p>시작된 10초 경고와 적립은 계속돼요. 10초 전에 경고를 직접 닫으면 이번 포인트는 지급되지 않아요.</p></article>
         </div>
       </div>
     </section>
@@ -158,7 +158,8 @@
       <li><strong>가상 비콘 접근 체험</strong><p>‘가상 접근 시작’을 누르고 7초 안에 다른 앱을 열거나 화면을 꺼요. 경고창을 닫지 않거나 화면을 끈 상태를 10초 유지하면 포인트가 쌓여요.</p></li>
     </ol>
     <p class="install-note">현재는 가상 비콘을 이용해요. 일부 보호 화면에서는 경고 표시가 제한될 수 있어요. 체험 뒤 설치 권한은 다시 꺼 둘 수 있어요.</p>
-    <a class="button button-dark dialog-download" href="downloads/traffic-demo.apk?v=0.4.2" download>APK 다운로드 <span aria-hidden="true">↓</span></a>
+    <p class="install-note">0.4.2에서 0.4.3으로 바꾸려면 앱 서명이 달라 기존 앱을 삭제한 뒤 설치해야 해요. 앱을 삭제하면 휴대폰에 저장된 포인트와 체험 기록도 지워져요.</p>
+    <a class="button button-dark dialog-download" href="downloads/traffic-demo.apk?v=0.4.3" download>APK 다운로드 <span aria-hidden="true">↓</span></a>
   </dialog>
 </body>
 </html>

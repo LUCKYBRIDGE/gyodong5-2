@@ -13,31 +13,25 @@ public final class RewardTest {
     private static void testRewardSession() {
         long start = 12_345;
         RewardSession session = RewardSession.start(start);
-        check("starts waiting", "WAITING", session.status(start, true, true, false).name());
+        check("starts waiting", "WAITING", session.status(start, true, false).name());
         check("waits for the whole duration", "WAITING",
-                session.status(start + 9_999, true, true, false).name());
+                session.status(start + 9_999, true, false).name());
         check("earns at exactly ten seconds", "EARNED",
-                session.status(start + 10_000, true, true, false).name());
+                session.status(start + 10_000, true, false).name());
         check("earns after ten seconds", "EARNED",
-                session.status(start + 10_001, true, true, false).name());
-        check("leaving range cancels", "CANCELLED",
-                session.status(start + 5_000, false, true, false).name());
+                session.status(start + 10_001, true, false).name());
         check("dismissing the popup cancels", "CANCELLED",
-                session.status(start + 5_000, true, false, false).name());
-        check("leaving range at the deadline cancels", "CANCELLED",
-                session.status(start + 10_000, false, true, false).name());
+                session.status(start + 5_000, false, false).name());
         check("dismissing the popup at the deadline cancels", "CANCELLED",
-                session.status(start + 10_000, true, false, false).name());
-        check("screen off inside range can earn without a popup", "EARNED",
-                session.status(start + 10_000, true, false, true).name());
+                session.status(start + 10_000, false, false).name());
+        check("screen off can earn without a popup", "EARNED",
+                session.status(start + 10_000, false, true).name());
         check("screen off still requires the whole duration", "WAITING",
-                session.status(start + 9_999, true, false, true).name());
-        check("screen off outside range cannot earn", "CANCELLED",
-                session.status(start + 10_000, false, false, true).name());
+                session.status(start + 9_999, false, true).name());
         check("waiting with the warning before turning off the screen", "WAITING",
-                session.status(start + 5_000, true, true, false).name());
+                session.status(start + 5_000, true, false).name());
         check("switching from the warning to screen off preserves safe duration", "EARNED",
-                session.status(start + 10_000, true, false, true).name());
+                session.status(start + 10_000, false, true).name());
     }
 
     private static void testProximity() {

@@ -9,8 +9,8 @@ record RewardSession(long startedAtMillis) {
         return new RewardSession(nowMillis);
     }
 
-    Status status(long nowMillis, boolean inRange, boolean warningVisible, boolean screenOff) {
-        if (!inRange || !(warningVisible || screenOff)) return Status.CANCELLED;
+    Status status(long nowMillis, boolean warningVisible, boolean screenOff) {
+        if (!(warningVisible || screenOff)) return Status.CANCELLED;
         return nowMillis - startedAtMillis >= HOLD_MILLIS ? Status.EARNED : Status.WAITING;
     }
 }

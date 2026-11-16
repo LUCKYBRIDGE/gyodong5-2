@@ -196,7 +196,7 @@ public final class MainActivity extends Activity {
         LinearLayout trial = card();
         trial.addView(ui.text("가상 비콘 체험", 17, INK, true));
         ui.space(trial, 4);
-        trial.addView(ui.text("시작 후 다른 앱을 열거나 화면을 꺼 보세요. 가까이에서 화면을 끄거나 경고를 "
+        trial.addView(ui.text("시작 후 다른 앱을 열거나 화면을 꺼 보세요. 비콘 접근 후 화면을 끄거나 경고를 "
                 + RewardSession.HOLD_MILLIS / 1000 + "초 유지하면 "
                 + formatPoints(DailyPoints.POINTS_PER_REWARD) + "이 쌓여요.", 13, MUTED, false));
         ui.space(trial, 10);

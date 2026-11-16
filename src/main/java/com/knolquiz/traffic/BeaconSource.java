@@ -13,7 +13,7 @@ interface BeaconSource {
 
     final class Demo implements BeaconSource {
         private static final long APPROACH_DELAY_MS = 7_000;
-        private static final long IN_RANGE_MS = 22_000;
+        private static final long IN_RANGE_MS = 5_000;
 
         private final Handler handler = new Handler(Looper.getMainLooper());
         private Runnable approach;

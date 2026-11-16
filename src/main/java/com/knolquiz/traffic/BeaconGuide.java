@@ -27,7 +27,7 @@ final class BeaconGuide {
         addStep(content, ui, 3, "다른 앱 위에 경고 표시",
                 "안드로이드에서 ‘다른 앱 위에 표시’를 허용하면 화면 위에 “횡단보도 앞입니다. 주변을 봐주세요.”가 떠요.");
         addStep(content, ui, 4, "화면을 끄거나 경고창을 유지",
-                "감지 범위 안에서 화면을 꺼 두거나 경고를 닫지 않은 상태로 "
+                "비콘 접근 후 화면을 꺼 두거나 경고를 닫지 않은 상태로 "
                         + RewardSession.HOLD_MILLIS / 1_000
                         + "초가 지나면 " + DailyPoints.POINTS_PER_REWARD + "점씩 하루 최대 "
                         + DailyPoints.DAILY_LIMIT + "번 적립해요. 적립한 기록은 하슬랑의 성장에도 반영돼요.");
