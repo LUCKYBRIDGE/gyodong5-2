@@ -143,8 +143,11 @@ struct SignalAlertView: View {
                 Text("\(ledger.balance)점").font(.title.bold())
             }
             card {
-                Text("편의점 기프티콘").font(.headline)
-                Text("모바일 교환권 예시예요. 실제 발급은 서비스 연동 후 이용할 수 있어요.").font(.subheadline)
+                Text("모바일 교환권 예시").font(.headline)
+                Text("편의점 기프티콘")
+                Text("치킨 기프티콘")
+                Text("아이스크림 기프티콘")
+                Text("실제 발급은 서비스 연동 후 이용할 수 있어요.").font(.subheadline)
             }
             ForEach(ShopItem.allCases) { item in
                 card {

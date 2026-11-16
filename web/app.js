@@ -67,7 +67,7 @@ function home(standalone) {
 function shop() {
   return `${titleHeading("포인트 상점", "웹에서 모은 포인트로 꾸미기를 체험해요.")}
   <section class="app-card balance-card"><p>사용 가능한 포인트</p><strong>${money(state.total - state.spent)}점</strong></section>
-  <section class="app-card coupon-example"><span class="app-eyebrow">모바일 교환권 · 상품 예시</span><h4>편의점 기프티콘</h4><p>실제 발급은 운영 예산과 발송 서비스 연동 후 제공할 예정이에요.</p></section>
+  <section class="app-card coupon-example"><h4>모바일 교환권 예시</h4><ul><li>편의점 기프티콘</li><li>치킨 기프티콘</li><li>아이스크림 기프티콘</li></ul><p>실제 발급은 운영 예산과 발송 서비스 연동 후 제공할 예정이에요.</p></section>
   <h4 class="app-section-title">하슬랑 꾸미기</h4>
   ${ITEMS.map((item) => {
     const owned = state.owned.includes(item.id);

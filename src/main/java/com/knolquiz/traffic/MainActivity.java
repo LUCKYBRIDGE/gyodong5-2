@@ -240,9 +240,11 @@ public final class MainActivity extends Activity {
         ui.space(content, 14);
 
         LinearLayout voucher = card();
-        voucher.addView(ui.text("모바일 교환권 · 상품 예시", 13, MUTED, true));
+        voucher.addView(ui.text("모바일 교환권 예시", 13, MUTED, true));
         ui.space(voucher, 4);
-        voucher.addView(ui.text("편의점 기프티콘", 18, INK, true));
+        for (String example : new String[]{"편의점 기프티콘", "치킨 기프티콘", "아이스크림 기프티콘"}) {
+            voucher.addView(ui.text(example, 16, INK, true));
+        }
         voucher.addView(ui.text("실제 쿠폰 발급은 발송 서비스 연동 후 이용할 수 있어요.", 13, MUTED, false));
         content.addView(voucher);
         ui.space(content, 16);
